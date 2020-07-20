@@ -2,7 +2,7 @@ data=readtable("forUsage.csv");
 
 Tss=5e-6;
 
-P=10e3;
+P=1.2e6;
 U=380;
 f=50;
 fsw=5e3;
