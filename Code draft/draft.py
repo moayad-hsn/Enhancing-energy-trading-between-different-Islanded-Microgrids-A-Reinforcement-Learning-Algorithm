@@ -64,7 +64,7 @@ class Battery:
 		if empty <=0:
 			return amount
 		else:
-			self.remaining_capacity+= self.charge_rate*amount
+			self.remaining_capacity+= amount
 			leftover = self.remaining_capacity - self.max_capacity
 			self.remaining_capacity = min(self.max_capacity, self.remaining_capacity)
 			
@@ -74,16 +74,16 @@ class Battery:
 
 	def supply(self, amount):
 		remaining = self.remaining_capacity
-		self.remaining_capacity -= amount*self.discharge_cofficient
+		self.remaining_capacity -= amount
 		self.remaining_capacity = max(self.remaining_capacity,0)
 		
 		return min(amount, remaining)
 	
 #dissipate the battery with the factor, might not need it probably
-
+'''
 	def dissipate(self):
 		self.remaining_capacity = self.remaining_capacity * math.exp(- self.dissipation)
-	
+'''	
 	@property
 	def SOC(self):
 		self._SOC = self.remaining_capacity/self.max_capacity
@@ -95,11 +95,11 @@ class Battery:
 
 class Generation:
 	def __init__(self, name, maxCapacity = None):
-		self.solar_df = pd.read_csv("data/" + name + "_sloar_generation.csv")
+		self.solar_df = pd.read_csv("data/" + name + "_solar_generation.csv")
 		self.wind_df = pd.read_csv("data/" + name + "_wind_generation.csv")
-		self.sloar_generation = np.array(self.solar_df["value"])
+		self.solar_generation = np.array(self.solar_df["value"])
 		self.wind_generation = np.array(self.wind_df["value"])
-		self.generation = self.sloar_generation + self.wind_generation
+		self.generation = self.solar_generation + self.wind_generation
 		self.max_generation = max(self.generation)
 
 #given current time, give the total generation of the solar and wind units		
@@ -120,11 +120,11 @@ class Generation:
 
 
 class Microgrid:
-	def __init__(self, name, load_parameters, battery_parameters, distance_to_center):
+	def __init__(self, name, load_parameters, battery_parameters):
 		self.name = name #name of the microgrid used for data loading
 		self.load_parameters = load_parameters #np array of the parameters to create the load of the microgrid that is the number of schools, houses, mosques, health centers and water pumps
 		self.battery_parameters = battery_parameters #np array of the parameters to create the battery of the microgrid
-		self.distance_to_center = distance_to_center # distance to a central point between the microgrids, used for loss calculations
+		#self.distance_to_center = distance_to_center # distance to a central point between the microgrids, used for loss calculations
 		self.battery = self._create_battery(battery_parameters)
 		self.houses, self.schools, self.mosques, self.health_centers, self.water_pumps= self._create_loads(load_parameters)
 		self.generation = Generation(name)
@@ -160,7 +160,7 @@ class Microgrid:
 		
 		return total_load
 
-#current status of the MG containing it's battery's remaining capacity, it's current poewr generation and its current total load
+#current status of the MG containing it's battery's remaining capacity, it's current power generation and its current total load
 	def state (self, time):
 		total_generation = self.generation.current_generation(time)
 		total_load = self.total_load(time)
@@ -183,7 +183,7 @@ class MicrogridEnv (gym.Env):
 		self.second_mg= Microgrid("Neyala", NYALA_LOAD_PARAMETERS, NYALA_BATTERY_PARAMETERS, NYALA_DISTANCE_TO_CENTER)
 
 		self.time_step = 0
-		self.dates = np.array(pd.read_csv("data/" + main_mG.name + "_sloar_generation.csv")["Time"], dtype = np.float32)
+		self.dates = np.array(pd.read_csv("data/" + main_mG.name + "_solar_generation.csv")["Time"], dtype = np.float32)
 		self.start_date = dates[self.time_step]
 		self.current_price = NETWORK_PRICE
 
@@ -218,8 +218,8 @@ class MicrogridEnv (gym.Env):
 		dist_name = target_mg.name
 		final_name = src_name + dist_name
 		distance = distances[final_name]
-		base_res = 1.1 #25mm aluminium
-		voltage = 66000#use sub_transmission?
+		base_res = 1.1p #25mm aluminium
+		voltage = 33000#use sub_transmission?
 		loss = ((amount**2) * (base_res*distance))/(voltage **2)
 		'''
 		return loss
