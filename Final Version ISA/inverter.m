@@ -1,4 +1,4 @@
-data=readtable("forUsage.csv");
+data=readtable("Day1.csv");
 
 Tss=5e-6;
 
@@ -16,8 +16,8 @@ irrad = data.SolarSensor_solar_irradiance_Avg;
 temp = data.Hygro_Thermo_temperature_Avg;
 windSpeed = data.TopAnemometer_wind_speed_Avg;
 R=1e-12;
-L=1e-2;
-C=13.5e-4;
+L=2e-2;
+C=550e-6;
 Lf=(0.1*U^2)/(2*pi*f*P);
 RLf=Lf*100;
 
