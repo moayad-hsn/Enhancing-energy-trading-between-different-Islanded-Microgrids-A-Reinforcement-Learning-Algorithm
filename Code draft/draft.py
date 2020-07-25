@@ -3,21 +3,18 @@
 #Imports
 
 #constants
-SCHOOL_MAX_LOAD = 0
-HOUSE_MAX_LOAD =  0
-MOSQUE_MAX_LOAD = 0
-HEALTH_CENTER_MAX_LOAD = 0 
-WATER_PUMP_MAX_LOAD = 0
+SCHOOL_MAX_LOAD = 6.012
+HOUSE_MAX_LOAD =  5.678
+MOSQUE_MAX_LOAD = 4.324
+HEALTH_CENTER_MAX_LOAD = 5.8 
+WATER_PUMP_MAX_LOAD = 0.77
 
-KABKABEA_LOAD_PARAMETERS = 
+KABKABEA_LOAD_PARAMETERS = [70, 1, 2, 1, 2]
 KABKABYA_BATTERY_PARAMETERS = 
-KABKABYA_DISTANCE_TO_CENTER = 
-ALFASHIR_LOAD_PARAMETERS = 
+ALFASHIR_LOAD_PARAMETERS = [50, 1, 1, 0, 1]
 ALFASHIR_BATTERY_PARAMETERS = 
-ALFASHIR_DISTANCE_TO_CENTER = 
-NYALA_LOAD_PARAMETERS = 
+NYALA_LOAD_PARAMETERS = [45, 0, 1, 0, 1]
 NYALA_BATTERY_PARAMETERS = 
-NYALA_DISTANCE_TO_CENTER = 
 
 distances = {"Alfashir_Nyala": 10, "Alfashir_Kabkabya": 50, "Nyala_Kabkabya": 30, "Nyala_Alfashir": 10, "Kabkabya_Alfashir": 50, "Kabkabya_Nyala": 30} 
 
@@ -178,9 +175,9 @@ class Microgrid:
 
 class MicrogridEnv (gym.Env):
 	def __init__(self):
-		self.main_mG = Microgrid("kabkabea", KABKABEA_LOAD_PARAMETERS, KABKABYA_BATTERY_PARAMETERS, KABKABYA_DISTANCE_TO_CENTER)
-		self.first_mg = Microgrid("Alfashir", ALFASHIR_LOAD_PARAMETERS, ALFASHIR_BATTERY_PARAMETERS, ALFASHIR_DISTANCE_TO_CENTER)
-		self.second_mg= Microgrid("Neyala", NYALA_LOAD_PARAMETERS, NYALA_BATTERY_PARAMETERS, NYALA_DISTANCE_TO_CENTER)
+		self.main_mG = Microgrid("kabkabea", KABKABEA_LOAD_PARAMETERS, KABKABYA_BATTERY_PARAMETERS)
+		self.first_mg = Microgrid("Alfashir", ALFASHIR_LOAD_PARAMETERS, ALFASHIR_BATTERY_PARAMETERS)
+		self.second_mg= Microgrid("Neyala", NYALA_LOAD_PARAMETERS, NYALA_BATTERY_PARAMETERS)
 
 		self.time_step = 0
 		self.dates = np.array(pd.read_csv("data/" + main_mG.name + "_solar_generation.csv")["Time"], dtype = np.float32)
@@ -263,6 +260,7 @@ class MicrogridEnv (gym.Env):
 			else:
 				reward -= 1
 			self.prices.append(price)
+			main_mg.supply(main_mg.total_load(self.current_date))
 
 
 		elif action_type < 2:
@@ -284,10 +282,12 @@ class MicrogridEnv (gym.Env):
 			else:
 				reward -= 1
 			self.prices.append(price)
+			main_mg.supply(main_mg.total_load(self.current_date))
 			
 
 
 		else:
+			main_mg.supply(main_mg.total_load(self.current_date))
 		self.time_step +=1
 		state = self._status()
 		if self.time_step >= MAX_STEPS:
