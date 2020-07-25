@@ -18,7 +18,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.16"
+    ComputedModelVersion    "1.17"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -602,8 +602,8 @@ Model {
 	  ViewObjType		  "SimulinkSubsys"
 	  LoadSaveID		  "883"
 	  Extents		  [1266.0, 561.0]
-	  ZoomFactor		  [0.8]
-	  Offset		  [-18.703125, 37.234372653067112]
+	  ZoomFactor		  [0.77966218443568658]
+	  Offset		  [8.9653801494345089, 31.728799601171204]
 	}
 	Object {
 	  $ObjectID		  7
@@ -621,7 +621,7 @@ Model {
 	  LoadSaveID		  "0"
 	  Extents		  [1266.0, 561.0]
 	  ZoomFactor		  [0.68564077826017034]
-	  Offset		  [-9.788461538462343, 177.59705187844449]
+	  Offset		  [-384.62030956848116, 231.56117007731868]
 	}
 	Object {
 	  $ObjectID		  9
@@ -691,8 +691,8 @@ Model {
     }
   }
   HideAutomaticNames	  on
-  PhysicalModelingChecksum "1913511854"
-  PhysicalModelingParameterChecksum "4209693761"
+  PhysicalModelingChecksum "4189357351"
+  PhysicalModelingParameterChecksum "1386935849"
   PhysicalModelingProducts "Power_System_Blocks"
   Created		  "Wed Dec 25 08:58:48 2019"
   Creator		  "SonyPC"
@@ -700,9 +700,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "DELL"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Jul 24 03:30:50 2020"
-  RTWModifiedTimeStamp	  517447013
-  ModelVersionFormat	  "1.%<AutoIncrement:16>"
+  LastModifiedDate	  "Sat Jul 25 05:32:52 2020"
+  RTWModifiedTimeStamp	  517508787
+  ModelVersionFormat	  "1.%<AutoIncrement:17>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -1521,88 +1521,7 @@ Model {
 	  Version		  "1.0"
 	  DisabledProps		  []
 	  Description		  ""
-	  Array {
-	    Type		    "Handle"
-	    Dimension		    2
-	    MECH.SimMechanicsCC {
-	      $ObjectID		      28
-	      Version		      "19.0.0"
-	      DisabledProps	      []
-	      Description	      ""
-	      Components	      []
-	      Name		      "SimscapeMultibody1G"
-	      WarnOnRedundantConstraints on
-	      WarnOnSingularInitialAssembly off
-	      ShowCutJoints	      off
-	      VisOnUpdateDiagram      off
-	      VisDuringSimulation     off
-	      EnableVisSimulationTime on
-	      VisSampleTime	      "0"
-	      DisableBodyVisControl   off
-	      ShowCG		      on
-	      ShowCS		      on
-	      ShowOnlyPortCS	      off
-	      HighlightModel	      on
-	      FramesToBeSkipped	      "0"
-	      AnimationDelay	      "3"
-	      RecordAVI		      off
-	      CompressAVI	      on
-	      AviFileName	      ""
-	      AutoFitVis	      "off"
-	      EnableSelection	      on
-	      LastVizWinPosition      "[-1 -1 -1 -1]"
-	      CamPosition	      "[0 0 0]"
-	      CamTarget		      "[0 0 -1]"
-	      CamUpVector	      "[0 1 0]"
-	      CamHeight		      "-1"
-	      CamViewAngle	      "0"
-	      VisBackgroundColor      "[0.9 0.9 0.95]"
-	      DefaultBodyColor	      "[1 0 0]"
-	      MDLBodyVisualizationType "Convex hull from body CS locations"
-	      OVRRIDBodyVisualizationType "NONE"
-	      VisConfigFile	      ""
-	    }
-	    simmechanics.ConfigurationSet {
-	      $ObjectID		      29
-	      Version		      "19.0.0"
-	      DisabledProps	      []
-	      Description	      "Simscape Multibody"
-	      Array {
-		Type			"Handle"
-		Dimension		2
-		simmechanics.DiagnosticsConfigSet {
-		  $ObjectID		  30
-		  Version		  "19.0.0"
-		  DisabledProps		  []
-		  Description		  "Diagnostics"
-		  Components		  []
-		  Name			  "DiagnosticsConfigSet"
-		  SimMechanicsInvalidVisualProperty "warning"
-		  SimMechanicsCrossSectionNullEdge "warning"
-		  SimMechanicsUnconnectedFramePorts "warning"
-		  SimMechanicsUnconnectedGeometryPorts "warning"
-		  SimMechanicsRedundantBlock "warning"
-		  SimMechanicsConflictingReferenceFrames "warning"
-		  SimMechanicsRigidlyBoundBlock	"error"
-		  SimMechanicsUnsatisfiedHighPriorityTargets "warning"
-		  SimMechanicsJointTargetOverSpecification "error"
-		}
-		simmechanics.ExplorerConfigSet {
-		  $ObjectID		  31
-		  Version		  "19.0.0"
-		  DisabledProps		  []
-		  Description		  "Explorer"
-		  Components		  []
-		  Name			  "ExplorerConfigSet"
-		  SimMechanicsOpenEditorOnUpdate on
-		  InternalSimMechanicsExplorerSettings ""
-		}
-		PropName		"Components"
-	      }
-	      Name		      "SimscapeMultibody"
-	    }
-	    PropName		    "Components"
-	  }
+	  Components		  []
 	  Name			  "Simscape"
 	  EditingMode		  "Full"
 	  ExplicitSolverDiagnosticOptions "warning"
@@ -1632,7 +1551,7 @@ Model {
       ExtraOptions	      ""
     }
     Simulink.ConfigSet {
-      $ObjectID		      32
+      $ObjectID		      28
       Version		      "19.0.0"
       DisabledProps	      []
       Description	      ""
@@ -1640,7 +1559,7 @@ Model {
 	Type			"Handle"
 	Dimension		10
 	Simulink.SolverCC {
-	  $ObjectID		  33
+	  $ObjectID		  29
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  ""
@@ -1683,7 +1602,7 @@ Model {
 	  SolverOrder		  3
 	}
 	Simulink.DataIOCC {
-	  $ObjectID		  34
+	  $ObjectID		  30
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  ""
@@ -1725,7 +1644,7 @@ Model {
 	  LoggingIntervals	  "[-inf, inf]"
 	}
 	Simulink.OptimizationCC {
-	  $ObjectID		  35
+	  $ObjectID		  31
 	  Version		  "19.0.0"
 	  Array {
 	    Type		    "Cell"
@@ -1796,7 +1715,7 @@ Model {
 	  DenormalBehavior	  "GradualUnderflow"
 	}
 	Simulink.DebuggingCC {
-	  $ObjectID		  36
+	  $ObjectID		  32
 	  Version		  "19.0.0"
 	  Array {
 	    Type		    "Cell"
@@ -1918,7 +1837,7 @@ Model {
 	  ArithmeticOperatorsInVariantConditions "error"
 	}
 	Simulink.HardwareCC {
-	  $ObjectID		  37
+	  $ObjectID		  33
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  ""
@@ -1968,7 +1887,7 @@ Model {
 	  HardwareBoardFeatureSet "EmbeddedCoderHSP"
 	}
 	Simulink.ModelReferenceCC {
-	  $ObjectID		  38
+	  $ObjectID		  34
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  ""
@@ -1988,7 +1907,7 @@ Model {
 	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
-	  $ObjectID		  39
+	  $ObjectID		  35
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  ""
@@ -2022,7 +1941,7 @@ Model {
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
-	  $ObjectID		  40
+	  $ObjectID		  36
 	  Version		  "19.0.0"
 	  Array {
 	    Type		    "Cell"
@@ -2111,7 +2030,7 @@ Model {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
-	      $ObjectID		      41
+	      $ObjectID		      37
 	      Version		      "19.0.0"
 	      Array {
 		Type			"Cell"
@@ -2200,7 +2119,7 @@ Model {
 	    }
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
-	      $ObjectID		      42
+	      $ObjectID		      38
 	      Version		      "19.0.0"
 	      Array {
 		Type			"Cell"
@@ -2307,7 +2226,7 @@ Model {
 	  }
 	}
 	SlCovCC.ConfigComp {
-	  $ObjectID		  43
+	  $ObjectID		  39
 	  Version		  "19.0.0"
 	  DisabledProps		  []
 	  Description		  "Simulink Coverage Configuration Component"
@@ -2348,92 +2267,11 @@ Model {
 	  CovMcdcMode		  "Masking"
 	}
 	SSC.SimscapeCC {
-	  $ObjectID		  44
+	  $ObjectID		  40
 	  Version		  "1.0"
 	  DisabledProps		  []
 	  Description		  ""
-	  Array {
-	    Type		    "Handle"
-	    Dimension		    2
-	    MECH.SimMechanicsCC {
-	      $ObjectID		      45
-	      Version		      "19.0.0"
-	      DisabledProps	      []
-	      Description	      ""
-	      Components	      []
-	      Name		      "SimscapeMultibody1G"
-	      WarnOnRedundantConstraints on
-	      WarnOnSingularInitialAssembly off
-	      ShowCutJoints	      off
-	      VisOnUpdateDiagram      off
-	      VisDuringSimulation     off
-	      EnableVisSimulationTime on
-	      VisSampleTime	      "0"
-	      DisableBodyVisControl   off
-	      ShowCG		      on
-	      ShowCS		      on
-	      ShowOnlyPortCS	      off
-	      HighlightModel	      on
-	      FramesToBeSkipped	      "0"
-	      AnimationDelay	      "3"
-	      RecordAVI		      off
-	      CompressAVI	      on
-	      AviFileName	      ""
-	      AutoFitVis	      "off"
-	      EnableSelection	      on
-	      LastVizWinPosition      "[-1 -1 -1 -1]"
-	      CamPosition	      "[0 0 0]"
-	      CamTarget		      "[0 0 -1]"
-	      CamUpVector	      "[0 1 0]"
-	      CamHeight		      "-1"
-	      CamViewAngle	      "0"
-	      VisBackgroundColor      "[0.9 0.9 0.95]"
-	      DefaultBodyColor	      "[1 0 0]"
-	      MDLBodyVisualizationType "Convex hull from body CS locations"
-	      OVRRIDBodyVisualizationType "NONE"
-	      VisConfigFile	      ""
-	    }
-	    simmechanics.ConfigurationSet {
-	      $ObjectID		      46
-	      Version		      "19.0.0"
-	      DisabledProps	      []
-	      Description	      "Simscape Multibody"
-	      Array {
-		Type			"Handle"
-		Dimension		2
-		simmechanics.DiagnosticsConfigSet {
-		  $ObjectID		  47
-		  Version		  "19.0.0"
-		  DisabledProps		  []
-		  Description		  "Diagnostics"
-		  Components		  []
-		  Name			  "DiagnosticsConfigSet"
-		  SimMechanicsInvalidVisualProperty "warning"
-		  SimMechanicsCrossSectionNullEdge "warning"
-		  SimMechanicsUnconnectedFramePorts "warning"
-		  SimMechanicsUnconnectedGeometryPorts "warning"
-		  SimMechanicsRedundantBlock "warning"
-		  SimMechanicsConflictingReferenceFrames "warning"
-		  SimMechanicsRigidlyBoundBlock	"error"
-		  SimMechanicsUnsatisfiedHighPriorityTargets "warning"
-		  SimMechanicsJointTargetOverSpecification "error"
-		}
-		simmechanics.ExplorerConfigSet {
-		  $ObjectID		  48
-		  Version		  "19.0.0"
-		  DisabledProps		  []
-		  Description		  "Explorer"
-		  Components		  []
-		  Name			  "ExplorerConfigSet"
-		  SimMechanicsOpenEditorOnUpdate on
-		  InternalSimMechanicsExplorerSettings ""
-		}
-		PropName		"Components"
-	      }
-	      Name		      "SimscapeMultibody"
-	    }
-	    PropName		    "Components"
-	  }
+	  Components		  []
 	  Name			  "Simscape"
 	  EditingMode		  "Full"
 	  ExplicitSolverDiagnosticOptions "warning"
@@ -2466,11 +2304,11 @@ Model {
   }
   Simulink.ConfigSet {
     $PropName		    "ActiveConfigurationSet"
-    $ObjectID		    32
+    $ObjectID		    28
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    49
+    $ObjectID		    41
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -2840,7 +2678,7 @@ Model {
   System {
     Name		    "Microgrid"
     Location		    [-8, -8, 1374, 736]
-    Open		    off
+    Open		    on
     PortBlocksUseCompactNotation off
     SetExecutionDomain	    off
     ExecutionDomainType	    "Deduce"
@@ -2875,7 +2713,7 @@ Model {
       Name		      "Battery DC-DC converter "
       SID		      "94"
       Ports		      [0, 2, 0, 0, 0, 0, 2]
-      Position		      [20, 661, 115, 819]
+      Position		      [-355, 671, -260, 829]
       ZOrder		      5723
       BackgroundColor	      "orange"
       RequestExecContextInheritance off
@@ -4880,7 +4718,7 @@ Model {
       Name		      "Current Measurement"
       SID		      "1422"
       Ports		      [0, 1, 0, 0, 0, 1, 1]
-      Position		      [590, 518, 615, 542]
+      Position		      [215, 528, 240, 552]
       ZOrder		      100000
       LibraryVersion	      "1.2814"
       UserDataPersistent      on
@@ -5279,7 +5117,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto5"
       SID		      "1421"
-      Position		      [595, 640, 635, 670]
+      Position		      [220, 650, 260, 680]
       ZOrder		      100000
       GotoTag		      "Gv"
     }
@@ -5287,7 +5125,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto6"
       SID		      "1423"
-      Position		      [640, 485, 680, 515]
+      Position		      [265, 495, 305, 525]
       ZOrder		      100000
       GotoTag		      "Gi"
     }
@@ -9958,7 +9796,7 @@ Model {
       Name		      "PV array "
       SID		      "34"
       Ports		      [0, 0, 0, 0, 0, 0, 2]
-      Position		      [140, 487, 185, 603]
+      Position		      [-235, 497, -190, 613]
       ZOrder		      1103
       BackgroundColor	      "yellow"
       RequestExecContextInheritance off
@@ -9966,7 +9804,7 @@ Model {
       System {
 	Name			"PV array "
 	Location		[-8, -8, 1374, 736]
-	Open			off
+	Open			on
 	PortBlocksUseCompactNotation off
 	SetExecutionDomain	off
 	ExecutionDomainType	"Deduce"
@@ -11005,26 +10843,27 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData4'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','-7.55961','MaxYLimReal','7.60067','YLabelReal','','MinYLimMag"
-      "','0.00000','MaxYLimMag','7.60067','LegendVisibility','Off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-6.57896','MaxYLimReal','6.32036','YLabelReal','','MinYLimMag"
+      "','0.00000','MaxYLimMag','6.57896','LegendVisibility','Off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'Axes"
       "Color',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.06666"
       "66666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.8313"
       "72549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686"
       " 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines"
-      "',0,'LineNames',{{[]}},'ShowContent',true,'Placement',1),struct('MinYLimReal','-60.53126','MaxYLimReal','60.2590"
-      "9','YLabelReal','','MinYLimMag','0','MaxYLimMag','10','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMa"
-      "gPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'Color"
-      "Order',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392"
-      "156862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1"
-      " 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNa"
-      "mes',{{}},'NumLines',0,'LineNames',{{[]}},'ShowContent',true,'Placement',2)},'DisplayPropertyDefaults',struct('Y"
-      "LabelReal','','AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'Color"
-      "Order',[0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717"
-      "647058823529 0.274509803921569 1;0.392156862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1"
-      " 0.0745098039215686 0.650980392156863]),'DisplayLayoutDimensions',[2 1],'DisplayContentCache',[],'TimeRangeSampl"
-      "es','0.1','TimeRangeFrames','0.1'),extmgr.Configuration('Tools','Plot Navigation',true,'OnceAtStop',false,'Previ"
-      "ousZoomMode','ZoomY','PreviousAutoscale','XY'),extmgr.Configuration('Tools','Measurements',true,'Version','2019a"
-      "')),'Version','2019a','Position',[701 -32 560 679])"
+      "',3,'LineNames',{{'<signal>:1','<signal>:2','<signal>:3'}},'ShowContent',true,'Placement',1),struct('MinYLimReal"
+      "','-50.13464','MaxYLimReal','45.09821','YLabelReal','','MinYLimMag','0','MaxYLimMag','10','LegendVisibility','of"
+      "f','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.68627"
+      "4509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.41"
+      "1764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509"
+      "803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropert"
+      "iesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',3,'LineNames',{{'<signal>:1','<signal>:2','<signal>:3'}"
+      "},'ShowContent',true,'Placement',2)},'DisplayPropertyDefaults',struct('YLabelReal','','AxesColor',[0 0 0],'AxesT"
+      "ickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.62352941176"
+      "4706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.39215"
+      "6862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863]),"
+      "'DisplayLayoutDimensions',[2 1],'DisplayContentCache',[],'TimeRangeSamples','0.1','TimeRangeFrames','0.1'),extmg"
+      "r.Configuration('Tools','Plot Navigation',true,'OnceAtStop',false,'PreviousZoomMode','ZoomY','PreviousAutoscale'"
+      ",'XY'),extmgr.Configuration('Tools','Measurements',true,'Version','2019a')),'Version','2019a','Position',[701 -3"
+      "2 560 679])"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -11038,20 +10877,20 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData1'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','-40.72191','MaxYLimReal','366.11392','YLabelReal','','MinYLim"
-      "Mag','0.00000','MaxYLimMag','366.11392','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,"
-      "'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0."
-      "0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0"
-      ".831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.07450980392"
-      "15686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'Num"
-      "Lines',1,'LineNames',{{'Subsystem'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct('MinYLi"
-      "mReal','-40.72191','MaxYLimReal','366.11392','YLabelReal','','MinYLimMag','0.00000','MaxYLimMag','366.11392','Le"
-      "gendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.6862"
-      "74509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764"
-      "705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.8313"
-      "72549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),extmgr.Configura"
-      "tion('Tools','Plot Navigation',true,'PreviousAutoscale','XY'),extmgr.Configuration('Tools','Measurements',true,'"
-      "Version','2019a')),'Version','2019a')"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-2569.34481','MaxYLimReal','23124.10326','YLabelReal','','Min"
+      "YLimMag','  0.00000','MaxYLimMag','23124.10326','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase"
+      "',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder'"
+      ",[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862"
+      "745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.074"
+      "5098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{"
+      "{}},'NumLines',1,'LineNames',{{'Subsystem'}},'ShowContent',true,'Placement',1)},'DisplayPropertyDefaults',struct"
+      "('MinYLimReal','-2569.34481','MaxYLimReal','23124.10326','YLabelReal','','MinYLimMag','  0.00000','MaxYLimMag','"
+      "23124.10326','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTi"
+      "ckColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764"
+      "706 1;1 0.411764705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156"
+      "862745098 0.831372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863])),"
+      "extmgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY'),extmgr.Configuration('Tools','Meas"
+      "urements',true,'Version','2019a')),'Version','2019a','VisibleAtModelOpen','on')"
       NumInputPorts	      "1"
       Floating		      off
     }
@@ -11060,7 +10899,7 @@ Model {
       Name		      "Scope2"
       SID		      "384"
       Ports		      [1]
-      Position		      [200, 664, 230, 696]
+      Position		      [-175, 674, -145, 706]
       ZOrder		      5856
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -11107,27 +10946,27 @@ Model {
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
       "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData2'),extmgr.Configuration('Visuals','Time Domain"
-      "',true,'SerializedDisplays',{struct('MinYLimReal','556135.16952','MaxYLimReal','666131.73156','YLabelReal','','M"
-      "inYLimMag','556135.16952','MaxYLimMag','666131.73156','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMa"
-      "gPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'Color"
-      "Order',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392"
-      "156862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1"
-      " 0.0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNa"
-      "mes',{{}},'NumLines',1,'LineNames',{{'Power (3ph, Instantaneous)/1'}},'ShowContent',true,'Placement',1),struct('"
-      "MinYLimReal','-45692.42072','MaxYLimReal','411231.78652','YLabelReal','','MinYLimMag',' 0.00000','MaxYLimMag','4"
-      "717.37007','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTick"
-      "Color',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.0745098039"
-      "215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.0745098039"
-      "215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Tit"
-      "le','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Power"
-      " (3ph, Instantaneous)/2'}},'ShowContent',true,'Placement',2)},'DisplayPropertyDefaults',struct('YLabelReal','','"
-      "LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.68"
-      "6274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.4117"
-      "64705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.83"
-      "1372549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863]),'DisplayLayoutD"
-      "imensions',[2 1]),extmgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',fals"
-      "e,'PreviousZoomMode','ZoomY'),extmgr.Configuration('Tools','Measurements',true,'Version','2019a')),'Version','20"
-      "19a','Position',[1 41 1366 651])"
+      "',true,'SerializedDisplays',{struct('MinYLimReal','-90439.63552','MaxYLimReal','813956.71969','YLabelReal','','M"
+      "inYLimMag','   0.00000','MaxYLimMag','813956.71969','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagP"
+      "hase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOr"
+      "der',[1 1 0.0666666666666667;0.0745098039215686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.39215"
+      "6862745098 0.831372549019608 0.0745098039215686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0"
+      ".0745098039215686 0.650980392156863],'Title','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelName"
+      "s',{{}},'NumLines',1,'LineNames',{{'Power (3ph, Instantaneous)/1'}},'ShowContent',true,'Placement',1),struct('Mi"
+      "nYLimReal','-52215.34791','MaxYLimReal','469938.13122','YLabelReal','','MinYLimMag',' 0.00000','MaxYLimMag','471"
+      "7.37007','LegendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickCo"
+      "lor',[0.686274509803922 0.686274509803922 0.686274509803922],'ColorOrder',[1 1 0.0666666666666667;0.074509803921"
+      "5686 0.623529411764706 1;1 0.411764705882353 0.16078431372549;0.392156862745098 0.831372549019608 0.074509803921"
+      "5686;0.717647058823529 0.274509803921569 1;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863],'Title"
+      "','%<SignalLabel>','LinePropertiesCache',{{}},'UserDefinedChannelNames',{{}},'NumLines',1,'LineNames',{{'Power ("
+      "3ph, Instantaneous)/2'}},'ShowContent',true,'Placement',2)},'DisplayPropertyDefaults',struct('YLabelReal','','Le"
+      "gendVisibility','off','XGrid',true,'YGrid',true,'PlotMagPhase',false,'AxesColor',[0 0 0],'AxesTickColor',[0.6862"
+      "74509803922 0.686274509803922 0.686274509803922],'ColorOrder',[0.0745098039215686 0.623529411764706 1;1 0.411764"
+      "705882353 0.16078431372549;1 1 0.0666666666666667;0.717647058823529 0.274509803921569 1;0.392156862745098 0.8313"
+      "72549019608 0.0745098039215686;0.0588235294117647 1 1;1 0.0745098039215686 0.650980392156863]),'DisplayLayoutDim"
+      "ensions',[2 1]),extmgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY','OnceAtStop',false,"
+      "'PreviousZoomMode','ZoomY'),extmgr.Configuration('Tools','Measurements',true,'Version','2019a')),'Version','2019"
+      "a','Position',[1 41 1366 651])"
       NumInputPorts	      "2"
       Floating		      off
     }
@@ -11136,7 +10975,7 @@ Model {
       Name		      "Scope5"
       SID		      "962"
       Ports		      [1]
-      Position		      [180, 704, 210, 736]
+      Position		      [-195, 714, -165, 746]
       ZOrder		      100000
       ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
       "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
@@ -11447,7 +11286,7 @@ Model {
       System {
 	Name			"Subsystem"
 	Location		[-8, -8, 1374, 736]
-	Open			off
+	Open			on
 	PortBlocksUseCompactNotation off
 	SetExecutionDomain	off
 	ExecutionDomainType	"Deduce"
@@ -11461,7 +11300,7 @@ Model {
 	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"80"
+	ZoomFactor		"78"
 	SimulinkSubDomain	"Simulink"
 	Block {
 	  BlockType		  Gain
@@ -11796,7 +11635,7 @@ Model {
 	  System {
 	    Name		    "Pitch_angle"
 	    Location		    [-8, -8, 1374, 736]
-	    Open		    off
+	    Open		    on
 	    PortBlocksUseCompactNotation off
 	    SetExecutionDomain	    off
 	    ExecutionDomainType	    "Deduce"
@@ -12306,8 +12145,8 @@ Model {
 	  SourceProductName	  "Simscape Electrical"
 	  SourceProductBaseCode	  "PS"
 	  ContentPreviewEnabled	  on
-	  Pnom			  "500e3"
-	  Pelec_base		  "500e3/0.9"
+	  Pnom			  "1000000"
+	  Pelec_base		  "1000000/0.9"
 	  wind_base		  "12"
 	  P_wind_base		  "0.73"
 	  speed_nom		  "1.2"
@@ -13329,7 +13168,7 @@ Model {
       Name		      "Voltage Measurement"
       SID		      "1420"
       Ports		      [0, 1, 0, 0, 0, 2]
-      Position		      [580, 553, 605, 577]
+      Position		      [205, 563, 230, 587]
       ZOrder		      100000
       LibraryVersion	      "1.2814"
       UserDataPersistent      on
@@ -13366,7 +13205,7 @@ Model {
       Position		      [2000, -65, 2081, -26]
       ZOrder		      5742
       Priority		      "1"
-      LibraryVersion	      "1.2814"
+      LibraryVersion	      "*1.2814"
       SourceBlock	      "powerlib/powergui"
       SourceType	      "PSB option menu block"
       SourceProductName	      "Simscape Electrical"
@@ -13939,28 +13778,18 @@ Model {
       ZOrder		      1127
       SrcBlock		      "PV array "
       SrcPort		      RConn1
-      Points		      [233, 0; 0, 20; 36, 0]
+      Points		      [233, 0; 0, 20; 92, 0]
       Branch {
 	ConnectType		"DEST_DEST"
-	SrcBlock		"Battery DC-DC converter "
-	SrcPort			RConn1
-	Points			[339, 0; 0, -225]
+	SrcBlock		"Current Measurement"
+	SrcPort			LConn1
+	Points			[-50, 0; 0, 5]
       }
       Branch {
 	ConnectType		"DEST_SRC"
-	Points			[56, 0]
-	Branch {
-	  ConnectType		  "DEST_DEST"
-	  SrcBlock		  "Current Measurement"
-	  SrcPort		  LConn1
-	  Points		  [-50, 0; 0, 5]
-	}
-	Branch {
-	  ConnectType		  "DEST_SRC"
-	  Points		  [0, 25]
-	  DstBlock		  "Voltage Measurement"
-	  DstPort		  LConn1
-	}
+	Points			[0, 25]
+	DstBlock		"Voltage Measurement"
+	DstPort			LConn1
       }
     }
     Line {
@@ -13968,28 +13797,9 @@ Model {
       ZOrder		      1128
       SrcBlock		      "PV array "
       SrcPort		      RConn2
-      Points		      [233, 0; 0, 20; 87, 0]
-      Branch {
-	ConnectType		"DEST_DEST"
-	SrcBlock		"Battery DC-DC converter "
-	SrcPort			RConn2
-	Points			[390, 0; 0, -205]
-      }
-      Branch {
-	ConnectType		"DEST_SRC"
-	Points			[36, 0]
-	Branch {
-	  ConnectType		  "DEST_DEST"
-	  SrcBlock		  "Voltage Measurement"
-	  SrcPort		  LConn2
-	  Points		  [-9, 0; 0, 25]
-	}
-	Branch {
-	  ConnectType		  "DEST_SRC"
-	  DstBlock		  "Universal Bridge"
-	  DstPort		  RConn2
-	}
-      }
+      Points		      [233, 0; 0, 20; 123, 0; 0, -25]
+      DstBlock		      "Voltage Measurement"
+      DstPort		      LConn2
     }
     Line {
       ZOrder		      1137
@@ -13998,14 +13808,6 @@ Model {
       Points		      [19, 0; 0, 21; -53, 0; 0, 69]
       DstBlock		      "Goto5"
       DstPort		      1
-    }
-    Line {
-      LineType		      "Connection"
-      ZOrder		      1138
-      SrcBlock		      "Current Measurement"
-      SrcPort		      RConn1
-      DstBlock		      "Universal Bridge"
-      DstPort		      RConn1
     }
     Line {
       ZOrder		      1141
@@ -14045,6 +13847,42 @@ Model {
       Points		      [15, 0; 0, 20]
       DstBlock		      "Power\n(Phasor)"
       DstPort		      2
+    }
+    Line {
+      LineType		      "Connection"
+      ZOrder		      1157
+      SrcBlock		      "Subsystem"
+      SrcPort		      RConn1
+      Points		      [73, 0; 0, 160; 19, 0]
+      Branch {
+	ConnectType		"DEST_DEST"
+	SrcBlock		"Battery DC-DC converter "
+	SrcPort			RConn1
+	Points			[817, 0; 0, -235]
+      }
+      Branch {
+	ConnectType		"DEST_SRC"
+	DstBlock		"Universal Bridge"
+	DstPort			RConn1
+      }
+    }
+    Line {
+      LineType		      "Connection"
+      ZOrder		      1158
+      SrcBlock		      "Subsystem"
+      SrcPort		      RConn2
+      Points		      [29, 0; 0, 175; 114, 0]
+      Branch {
+	ConnectType		"DEST_DEST"
+	SrcBlock		"Battery DC-DC converter "
+	SrcPort			RConn2
+	Points			[868, 0; 0, -215]
+      }
+      Branch {
+	ConnectType		"DEST_SRC"
+	DstBlock		"Universal Bridge"
+	DstPort			RConn2
+      }
     }
   }
 }
