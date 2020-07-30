@@ -4,7 +4,7 @@ Model {
   SavedCharacterEncoding  "windows-1252"
   GraphicalInterface {
     NumRootInports	    0
-    NumRootOutports	    4
+    NumRootOutports	    3
     Outport {
       Name		      "p"
       BusObject		      ""
@@ -18,19 +18,13 @@ Model {
       UnitExpr		      "inherit"
     }
     Outport {
-      Name		      "p2"
-      BusObject		      ""
-      BusOutputAsStruct	      "off"
-      UnitExpr		      "inherit"
-    }
-    Outport {
-      Name		      "q2"
+      Name		      "Battery Power"
       BusObject		      ""
       BusOutputAsStruct	      "off"
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.21"
+    ComputedModelVersion    "1.22"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -42,7 +36,7 @@ Model {
     IsExportFunctionModel   0
     IsArchitectureModel	    0
     NumParameterArguments   0
-    NumExternalFileReferences 68
+    NumExternalFileReferences 67
     ExternalFileReference {
       Reference		      "dsparch4/Analog\nFilter Design"
       Path		      "Microgrid/Battery DC-DC converter /Analog Filter Design"
@@ -257,12 +251,6 @@ Model {
       Reference		      "powerlib_meascontrol/Measurements/Power\n(3ph, Instantaneous)"
       Path		      "Microgrid/Power (3ph, Instantaneous)"
       SID		      "490"
-      Type		      "LIBRARY_BLOCK"
-    }
-    ExternalFileReference {
-      Reference		      "powerlib_meascontrol/Measurements/Power\n(3ph, Instantaneous)"
-      Path		      "Microgrid/Power (3ph, Instantaneous)1"
-      SID		      "1491"
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
@@ -579,7 +567,7 @@ Model {
 	  LoadSaveID		  "0"
 	  Extents		  [1266.0, 561.0]
 	  ZoomFactor		  [0.69]
-	  Offset		  [-384.3680932971015, 75.5072463768116]
+	  Offset		  [434.47248641304344, 75.507246376811565]
 	}
 	Object {
 	  $ObjectID		  9
@@ -649,8 +637,8 @@ Model {
     }
   }
   HideAutomaticNames	  on
-  PhysicalModelingChecksum "1980885967"
-  PhysicalModelingParameterChecksum "2117186622"
+  PhysicalModelingChecksum "2690560238"
+  PhysicalModelingParameterChecksum "3402985352"
   PhysicalModelingProducts "Power_System_Blocks"
   Created		  "Wed Dec 25 08:58:48 2019"
   Creator		  "SonyPC"
@@ -658,9 +646,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "DELL"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jul 30 06:27:52 2020"
-  RTWModifiedTimeStamp	  517952874
-  ModelVersionFormat	  "1.%<AutoIncrement:21>"
+  LastModifiedDate	  "Thu Jul 30 11:13:22 2020"
+  RTWModifiedTimeStamp	  518008350
+  ModelVersionFormat	  "1.%<AutoIncrement:22>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -2652,7 +2640,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "69"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1496"
+    SIDHighWatermark	    "1497"
     SimulinkSubDomain	    "Simulink"
     Block {
       BlockType		      SubSystem
@@ -10353,21 +10341,6 @@ Model {
       ContentPreviewEnabled   on
     }
     Block {
-      BlockType		      Reference
-      Name		      "Power\n(3ph, Instantaneous)1"
-      SID		      "1491"
-      Ports		      [2, 2]
-      Position		      [1585, 460, 1635, 500]
-      ZOrder		      100000
-      LibraryVersion	      "1.168"
-      FontName		      "Arial"
-      SourceBlock	      "powerlib_meascontrol/Measurements/Power\n(3ph, Instantaneous)"
-      SourceType	      "Power (3ph, Instantaneous)"
-      SourceProductName	      "Simscape Electrical"
-      SourceProductBaseCode   "PS"
-      ContentPreviewEnabled   on
-    }
-    Block {
       BlockType		      Scope
       Name		      "Scope"
       SID		      "126"
@@ -10453,21 +10426,6 @@ Model {
       ")),extmgr.Configuration('Tools','Plot Navigation',true,'PreviousAutoscale','XY'),extmgr.Configuration('Tools','M"
       "easurements',true,'Version','2019a')),'Version','2019a','Position',[60 156 560 420])"
       NumInputPorts	      "1"
-      Floating		      off
-    }
-    Block {
-      BlockType		      Scope
-      Name		      "Scope3"
-      SID		      "1490"
-      Ports		      [2]
-      Position		      [1530, 396, 1560, 429]
-      ZOrder		      100000
-      ScopeSpecificationString "Simulink.scopes.TimeScopeBlockCfg('CurrentConfiguration', extmgr.ConfigurationSet(extm"
-      "gr.Configuration('Core','General UI',true),extmgr.Configuration('Core','Source UI',true),extmgr.Configuration('S"
-      "ources','WiredSimulink',true,'DataLoggingVariableName','ScopeData1'),extmgr.Configuration('Visuals','Time Domain"
-      "',true),extmgr.Configuration('Tools','Plot Navigation',true),extmgr.Configuration('Tools','Measurements',true)),"
-      "'Version','2019a')"
-      NumInputPorts	      "2"
       Floating		      off
     }
     Block {
@@ -12597,7 +12555,7 @@ Model {
       Position		      [2000, -65, 2081, -26]
       ZOrder		      5742
       Priority		      "1"
-      LibraryVersion	      "*1.2814"
+      LibraryVersion	      "1.2814"
       SourceBlock	      "powerlib/powergui"
       SourceType	      "PSB option menu block"
       SourceProductName	      "Simscape Electrical"
@@ -12681,20 +12639,11 @@ Model {
     }
     Block {
       BlockType		      Outport
-      Name		      "p2"
-      SID		      "1492"
-      Position		      [1690, 463, 1720, 477]
+      Name		      "Battery Power"
+      SID		      "1497"
+      Position		      [-130, 728, -100, 742]
       ZOrder		      100000
       Port		      "3"
-      IconDisplay	      "Port number"
-    }
-    Block {
-      BlockType		      Outport
-      Name		      "q2"
-      SID		      "1493"
-      Position		      [1675, 498, 1705, 512]
-      ZOrder		      100000
-      Port		      "4"
       IconDisplay	      "Port number"
     }
     Line {
@@ -12785,8 +12734,18 @@ Model {
       ZOrder		      576
       SrcBlock		      "Battery DC-DC converter "
       SrcPort		      2
-      DstBlock		      "Scope5"
-      DstPort		      1
+      Points		      [23, 0]
+      Branch {
+	ZOrder			1246
+	Points			[0, 29; 78, 0; 0, -24]
+	DstBlock		"Battery Power"
+	DstPort			1
+      }
+      Branch {
+	ZOrder			1245
+	DstBlock		"Scope5"
+	DstPort			1
+      }
     }
     Line {
       LineType		      "Connection"
@@ -13053,21 +13012,6 @@ Model {
       Points		      [405, 0]
       DstBlock		      "Load2"
       DstPort		      LConn2
-    }
-    Line {
-      ZOrder		      1225
-      SrcBlock		      "Power\n(3ph, Instantaneous)1"
-      SrcPort		      2
-      Points		      [15, 0; 0, 15]
-      DstBlock		      "q2"
-      DstPort		      1
-    }
-    Line {
-      ZOrder		      1226
-      SrcBlock		      "Power\n(3ph, Instantaneous)1"
-      SrcPort		      1
-      DstBlock		      "p2"
-      DstPort		      1
     }
     Line {
       LineType		      "Connection"
