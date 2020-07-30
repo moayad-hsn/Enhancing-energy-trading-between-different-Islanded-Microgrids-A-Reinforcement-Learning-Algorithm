@@ -1,4 +1,4 @@
-data=readtable("Day2.csv");
+data=readtable("Day3.csv");
 
 Tss=2.5e-6;
 
