@@ -360,16 +360,20 @@ if __name__ == "__main__":
 	env.seed(1)
 	rewards =[]
 	state=env.reset()
+	steps = 0
 	while True:
 		action = env.action_space.sample()
 		#print(action)
 		state, reward, terminal, _ = env.step(action)
 		print(reward)
 		rewards.append(reward)
-
+		steps +=1
+		print (steps)
 		if terminal:
 			break
 
+		if steps > MAX_STEPS:
+			break
 	print("Total rewards:", sum(rewards))
 	''
 	'''parser = argparse.ArgumentParser()
