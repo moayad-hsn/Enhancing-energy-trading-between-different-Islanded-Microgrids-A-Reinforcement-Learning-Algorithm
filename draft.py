@@ -4,24 +4,34 @@
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot
-
+import gym
+from gym import spaces
+import random
 
 
 #constants
-SCHOOL_MAX_LOAD = 6.012
-HOUSE_MAX_LOAD =  5.678
-MOSQUE_MAX_LOAD = 4.324
-HEALTH_CENTER_MAX_LOAD = 5.8 
-WATER_PUMP_MAX_LOAD = 0.77
- max_capacity, discharge_cofficient, remaining_capacity, charge_rate
+SCHOOL_MAX_LOAD = 6_012.0
+HOUSE_MAX_LOAD =  5_678.0
+MOSQUE_MAX_LOAD = 4_324.0
+HEALTH_CENTER_MAX_LOAD = 5_800.0 
+WATER_PUMP_MAX_LOAD = 770.0
+
 UM_BADER_LOAD_PARAMETERS = [70, 1, 2, 1, 2]
-UM_BADER_BATTERY_PARAMETERS = [500, 0.02, 300, 0.3]
-HAMAZA_ELSHEIKH_LOAD_PARAMETERS = [50, 1, 1, 0, 1]
-HAMAZA_ELSHEIKH_BATTERY_PARAMETERS = [350, 0.02, 200, 0.3]
+UM_BADER_MAX_LOAD = 500_000.0
+UM_BADER_BATTERY_PARAMETERS = [500_000.0, 0.02, 300_000.0, 0.3]
+HAMZA_ELSHEIKH_LOAD_PARAMETERS = [50, 1, 1, 0, 1]
+HAMZA_ELSHEIKH_MAX_LOAD =350_000.0 
+HAMZA_ELSHEIKH_BATTERY_PARAMETERS = [350_000.0, 0.02, 200_000.0, 0.3]
 TANNAH_LOAD_PARAMETERS = [45, 0, 1, 0, 1]
-TANNAH_BATTERY_PARAMETERS = [300, 0.02, 150, 0.3]
+TANNAH_MAX_LOAD = 300_000.0
+TANNAH_BATTERY_PARAMETERS = [300_000.0, 0.02, 150_000.0, 0.3]
 
 distances = {"Um_Bader_Tannah": 10, "Um_Bader_Hamza_Elsheikh": 50, "Tannah_Hamza_Elsheikh": 30, "Tannah_Um_Bader": 10, "Hamza_Elsheikh_Um_Bader": 50, "Hamza_Elsheikh_Tannah": 30} 
+
+
+NETWORK_PRICE = 19 #In cents
+
+MAX_STEPS = 10_000
 
 
 #Helper Classes
@@ -36,7 +46,7 @@ class Load:
 		self.num_of_units = num_of_units #number_of_units_of_load_available_in_area
 
 	def _current_single_Load(self, time):
-		idx = self.usage_trend_df[self.usage_trend_df["Time"] == time].index.values
+		idx = self.usage_trends_df[self.usage_trends_df["Time"] == time].index.values
 		current_load = self.max_load * self.usage_trends_values[idx]
 		
 		return current_load
@@ -76,6 +86,7 @@ class Battery:
 
 	def supply(self, amount):
 		remaining = self.remaining_capacity
+		#print(amount)
 		self.remaining_capacity -= amount
 		self.remaining_capacity = max(self.remaining_capacity,0)
 		
@@ -85,22 +96,23 @@ class Battery:
 '''
 	def dissipate(self):
 		self.remaining_capacity = self.remaining_capacity * math.exp(- self.dissipation)
-'''	
-	@property
+
 	def SOC(self):
 		self._SOC = self.remaining_capacity/self.max_capacity
-		
 		return self._SOC
 
-
+'''
 
 
 class Generation:
 	def __init__(self, name, maxCapacity = None):
 		self.solar_df = pd.read_csv("data/Solar/" + name + "_solar_generation.csv")
 		self.wind_df = pd.read_csv("data/wind/" + name + "_wind_generation.csv")
-		self.solar_generation = np.array(self.solar_df["value"])
-		self.wind_generation = np.array(self.wind_df["value"])
+		self.solar_generation = np.array(self.solar_df["value"], dtype = np.float32)
+		self.wind_generation = np.array(self.wind_df["value"], dtype = np.float32)
+		for i in range(len(self.wind_generation)):
+			if self.wind_generation[i] <0:
+				self.wind_generation[i] = 0
 		self.generation = self.solar_generation + self.wind_generation
 		self.max_generation = max(self.generation)
 
@@ -135,7 +147,10 @@ class Microgrid:
 
 #creats a battery given its battery parameters ie max cap, dis coeff, initial rem cap and it's charge rate
 	def _create_battery(self, battery_parameters):
-		max_capacity, discharge_cofficient, remaining_capacity, charge_rate = battery_parameters
+		max_capacity = battery_parameters[0]
+		discharge_cofficient  = battery_parameters[1]
+		remaining_capacity = battery_parameters[2]
+		charge_rate  = battery_parameters[3]
 		battery = Battery(max_capacity, discharge_cofficient, remaining_capacity, charge_rate)
 		
 		return battery
@@ -175,6 +190,20 @@ class Microgrid:
 
 		return abs(load - (generation+battery))
 
+	def supply(self, load, time):
+		if load >= self.generation.current_generation(time):
+			load -= self.generation.current_generation(time)
+			if load <= self.battery.remaining_capacity:
+				self.battery.remaining_capacity -= load
+				load = 0
+			else:
+				load -= self.battery.remaining_capacity
+				self.battery.remaining_capacity = 0
+		else:
+			load = 0
+
+		return load
+
 
 
 
@@ -185,19 +214,23 @@ class MicrogridEnv (gym.Env):
 		self.second_mg= Microgrid("Tannah", TANNAH_LOAD_PARAMETERS, TANNAH_BATTERY_PARAMETERS)
 
 		self.time_step = 0
-		self.dates = np.array(pd.read_csv("data/" + main_mG.name + "_solar_generation.csv")["Time"], dtype = np.float32)
-		self.start_date = dates[self.time_step]
+		self.dates = np.array(pd.read_csv("data/Solar/" + self.main_mG.name + "_solar_generation.csv")["Time"])
+		self.start_date = self.dates[self.time_step]
 		self.current_price = NETWORK_PRICE
 
 
-		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_battery_capacity, NETWORK_PRICE]), dtype = np.float32, shape = (1,4))
-		self.observation_space =  spaces.Box(low = 0, high = self.max_power_generation, dtype = np.float32, shape = (1,5))
+
+		#print(self.main_mG.unit_price, self.main_mG.battery.max_capacity, NETWORK_PRICE)
+		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
+		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0, 0.0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE, MAX_STEPS]), dtype = np.float32)
 		
 
 
 	def _status(self):
+		if self.time_step >= len(self.dates):
+			self.time_step = 0
 		self.current_date = self.dates[self.time_step]
-		current_load, current_generation, remaining_capacity = self.main_mG.state(current_date)
+		current_load, current_generation, remaining_capacity = self.main_mG.state(self.current_date)
 		time_s = self.time_step
 		previous_price = self.current_price
 		state = np.array([remaining_capacity, current_load, current_generation, previous_price, time_s])
@@ -205,7 +238,7 @@ class MicrogridEnv (gym.Env):
 
 	def reset(self):
 		self.start_date = self.dates[random.randint(0,len(self.dates))]
-		self.main_mG.battery = self.main_mg._create_battery(KABKABYA_BATTERY_PARAMETERS)
+		self.main_mG.battery = self.main_mG._create_battery(HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
 		self.current_price = NETWORK_PRICE
 		self.energy_bought = []
 		self.energy_sold = []
@@ -218,9 +251,9 @@ class MicrogridEnv (gym.Env):
 		
 		src_name = self.main_mG.name
 		dist_name = target_mg.name
-		final_name = src_name + dist_name
+		final_name = src_name +"_"+ dist_name
 		distance = distances[final_name]
-		base_res = 1.1p #25mm aluminium
+		base_res = 1.1 #25mm aluminium
 		voltage = 33000#use sub_transmission?
 		loss = ((amount**2) * (base_res*distance))/(voltage **2)
 		
@@ -228,8 +261,8 @@ class MicrogridEnv (gym.Env):
 
 
 
-	def step(slelf, action):
-		action_tyep = action[0]
+	def step(self, action):
+		action_type = action[0]
 		target_mg_idx = action[1]
 		amount = action[2]
 		price = action[3]
@@ -237,7 +270,7 @@ class MicrogridEnv (gym.Env):
 		main_mg = self.main_mG
 
 
-		if targer_mg_index < 1:
+		if target_mg_idx < 1:
 			target_mg = self.first_mg
 		else:
 			target_mg = self.second_mg
@@ -248,58 +281,61 @@ class MicrogridEnv (gym.Env):
 		
 		if action_type <1:#buy from target MG
 			if price >= target_mg.unit_price:
-				if offer >= amount:
-					target_mg.battery.supply(amount)
-					main_mg.battery.charge(amount)
-					rem_amount = 0
-					reward -= rem_amount / amount
-					reward += (price - main_mg.unit_price)/main_mg.unit_price
-					self.energy_bought.append(amount - rem_amount)
-				else:
-					target_mg.battery.supply(offer)
-					main_mg.battery.charge(offer)
-					rem_amount = amount - offer
-					reward -= rem_amount / amount
-					reward += (price - main_mg.unit_priceni)/main_mg.unit_price
+				if offer != 0:
+					if offer >= amount:
+						target_mg.battery.supply(amount)
+						main_mg.battery.charge(amount)
+						rem_amount = 0
+						reward -= rem_amount / amount
+						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						self.energy_bought.append(amount - rem_amount)
+					else:
+						target_mg.battery.supply(offer)
+						main_mg.battery.charge(offer)
+						rem_amount = amount - offer
+						reward -= rem_amount / amount
+						reward += (price - main_mg.unit_price)/main_mg.unit_price
 					self.energy_bought.append(amount - rem_amount)
 			else:
 				reward -= 1
 			self.prices.append(price)
-			main_mg.supply(main_mg.total_load(self.current_date))
+			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 
 
 		elif action_type < 2:
 			if price >= main_mg.unit_price and price <= NETWORK_PRICE:
-				if offer >= amount:
-					main_mg.battery.supply(amount)
-					target_mg.battery.charge(amount)
-					rem_amount = 0
-					reward -= rem_amount / amount
-					reward += (price - main_mg.unit_price)/main_mg.unit_price
-					self.energy_sold.append(amount - rem_amount)
-				else:
-					main_mg.battery.supply(offer)
-					target_mg.battery.charge(offer)
-					rem_amount = amount - offer
-					reward -= rem_amount / amount
-					reward += (price - main_mg.unit_price)/main_mgi.unit_price
-					self.energy_sold.append(amount - rem_amount)
+				if offer != 0:
+
+					if offer >= amount:
+						main_mg.battery.supply(amount)
+						target_mg.battery.charge(amount)
+						rem_amount = 0
+						reward -= rem_amount / amount
+						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						self.energy_sold.append(amount - rem_amount)
+					else:
+						main_mg.battery.supply(offer)
+						target_mg.battery.charge(offer)
+						rem_amount = amount - offer
+						reward -= rem_amount / amount
+						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						self.energy_sold.append(amount - rem_amount)
 			else:
 				reward -= 1
 			self.prices.append(price)
-			main_mg.supply(main_mg.total_load(self.current_date))
+			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 			
 
 
 		else:
-			main_mg.supply(main_mg.total_load(self.current_date))
+			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 		self.time_step +=1
 		state = self._status()
 		if self.time_step >= MAX_STEPS:
 			is_done = True
 		else:
 			is_done = False
-		return state, reward, is_done, _
+		return state, reward, is_done, {}
 
 
 	def render(self):
@@ -320,24 +356,39 @@ class Grid:
 
 
 if __name__ == "__main__":
+	env = MicrogridEnv()
+	env.seed(1)
+	rewards =[]
+	state=env.reset()
+	while True:
+		action = env.action_space.sample()
+		#print(action)
+		state, reward, terminal, _ = env.step(action)
+		print(reward)
+		rewards.append(reward)
+
+		if terminal:
+			break
+
+	print("Total rewards:", sum(rewards))
+	''
 	'''parser = argparse.ArgumentParser()
     parser.add_argument("--cuda", default=False, action="store_true", help="Enable cuda")
     parser.add_argument("-n", "--name", required=True, help="Name of the run")
     args = parser.parse_args()
     device = torch.device("cuda" if args.cuda else "cpu")
-    '''
+    
 
-
-     # Testing the environment
+    # Testing the environment
     # Initialize the environment
-    env = MicroGridEnv()
-    env.seed(1)
+    #env = MicrogridEnv()
+    #env.seed(1)
     # Save the rewards in a list
-    rewards = []
+    #rewards = []
     # reset the environment to the initial state
-    state = env.reset()
+    #state = env.reset()
     # Call render to prepare the visualization
-    env.render()
+    #env.render()
     # Interact with the environment (here we choose random actions) until the terminal state is reached
     while True:
         # Pick an action from the action space (here we pick an index between 0 and 80)
@@ -360,4 +411,4 @@ if __name__ == "__main__":
     pyplot.xlabel("Time")
     pyplot.ylabel("rewards")
     pyplot.show()
-
+'''
