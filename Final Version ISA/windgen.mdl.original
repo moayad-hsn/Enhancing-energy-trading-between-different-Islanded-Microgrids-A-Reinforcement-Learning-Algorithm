@@ -25,7 +25,7 @@ Model {
       UnitExpr		      "inherit"
     }
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.3"
+    ComputedModelVersion    "1.6"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -162,7 +162,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1266.0, 561.0]
+	Extents			[1266.0, 564.0]
 	ZoomFactor		[1.0]
 	Offset			[-62.685120206643319, 21.544287661550811]
       }
@@ -205,9 +205,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "DELL"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Aug 12 20:20:22 2020"
-  RTWModifiedTimeStamp	  519164138
-  ModelVersionFormat	  "1.%<AutoIncrement:3>"
+  LastModifiedDate	  "Thu Aug 13 14:17:22 2020"
+  RTWModifiedTimeStamp	  519228917
+  ModelVersionFormat	  "1.%<AutoIncrement:6>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "disabled"
@@ -1244,13 +1244,13 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "36"
+    SIDHighWatermark	    "37"
     SimulinkSubDomain	    "Simulink"
     Block {
       BlockType		      Inport
       Name		      "In1"
       SID		      "33"
-      Position		      [480, 148, 510, 162]
+      Position		      [430, 168, 460, 182]
       ZOrder		      100000
       BlockMirror	      on
       IconDisplay	      "Port number"
@@ -1586,7 +1586,7 @@ Model {
       Name		      "irradiation\n"
       SID		      "36"
       Ports		      [0, 1]
-      Position		      [480, 115, 510, 145]
+      Position		      [465, 135, 495, 165]
       ZOrder		      100000
       BlockMirror	      on
       LibraryVersion	      "1.453"
@@ -1853,45 +1853,6 @@ Model {
       }
     }
     Line {
-      ZOrder		      89
-      SrcBlock		      "In1"
-      SrcPort		      1
-      Points		      [-40, 0; 0, 20]
-      DstBlock		      "Wind Turbine\nInduction Generator\n(Phasor Type)"
-      DstPort		      2
-    }
-    Line {
-      ZOrder		      36
-      Points		      [585, 195; 33, 0; 0, -74]
-      Branch {
-	ZOrder			39
-	Points			[42, 0; 0, -11]
-	DstBlock		"Scope"
-	DstPort			1
-      }
-      Branch {
-	ZOrder			38
-	Points			[0, -9; 43, 0; 0, -67]
-	DstBlock		"Power\n(Positive-Sequence)"
-	DstPort			1
-      }
-    }
-    Line {
-      ZOrder		      37
-      Points		      [585, 210; 39, 0; 0, -85; 27, 0]
-      Branch {
-	ZOrder			41
-	DstBlock		"Scope"
-	DstPort			2
-      }
-      Branch {
-	ZOrder			40
-	Points			[0, -60]
-	DstBlock		"Power\n(Positive-Sequence)"
-	DstPort			2
-      }
-    }
-    Line {
       ZOrder		      44
       SrcBlock		      "Power\n(Positive-Sequence)"
       SrcPort		      1
@@ -1916,10 +1877,16 @@ Model {
       DstPort		      LConn1
     }
     Line {
-      ZOrder		      98
+      ZOrder		      108
+      SrcBlock		      "In1"
+      SrcPort		      1
+      DstBlock		      "Wind Turbine\nInduction Generator\n(Phasor Type)"
+      DstPort		      2
+    }
+    Line {
+      ZOrder		      111
       SrcBlock		      "irradiation\n"
       SrcPort		      1
-      Points		      [-19, 0; 0, 20]
       DstBlock		      "Wind Turbine\nInduction Generator\n(Phasor Type)"
       DstPort		      1
     }
