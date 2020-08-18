@@ -227,7 +227,7 @@ Model {
   LastModifiedBy	  "DELL"
   ModifiedDateFormat	  "%<Auto>"
   LastModifiedDate	  "Tue Aug 18 09:04:30 2020"
-  RTWModifiedTimeStamp	  519655002
+  RTWModifiedTimeStamp	  519670494
   ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -344,7 +344,7 @@ Model {
 	  StopTime		  " 50"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
-	  FixedStep		  "0.001"
+	  FixedStep		  "0.1"
 	  InitialStep		  "auto"
 	  MaxOrder		  5
 	  ZcThreshold		  "auto"
@@ -2781,16 +2781,16 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"1038"
+	SIDHighWatermark	"1353"
 	SIDPrevWatermark	"223"
 	SimulinkSubDomain	"Simulink"
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "EquivalentModel1"
-	  SID			  "24:994"
+	  SID			  "24:1309"
 	  Ports			  []
 	  Position		  [15, 70, 143, 105]
-	  ZOrder		  19
+	  ZOrder		  26
 	  FontName		  "Arial"
 	  RequestExecContextInheritance	off
 	  Object {
@@ -2823,7 +2823,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "Gates"
-	      SID		      "24:995"
+	      SID		      "24:1310"
 	      Ports		      [0, 1]
 	      Position		      [110, 87, 175, 113]
 	      ZOrder		      -1
@@ -2852,7 +2852,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From1"
-		  SID			  "24:1018"
+		  SID			  "24:1333"
 		  Position		  [15, 21, 85, 49]
 		  ZOrder		  1
 		  GotoTag		  "T84_7630_10875674615288"
@@ -2861,7 +2861,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From2"
-		  SID			  "24:1019"
+		  SID			  "24:1334"
 		  Position		  [15, 66, 85, 94]
 		  ZOrder		  2
 		  GotoTag		  "T84_7631_10880188960119"
@@ -2870,7 +2870,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From3"
-		  SID			  "24:1020"
+		  SID			  "24:1335"
 		  Position		  [15, 111, 85, 139]
 		  ZOrder		  3
 		  GotoTag		  "T84_7632_10884952965902"
@@ -2879,7 +2879,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From4"
-		  SID			  "24:1021"
+		  SID			  "24:1336"
 		  Position		  [15, 156, 85, 184]
 		  ZOrder		  4
 		  GotoTag		  "T84_7631_10874700309161"
@@ -2888,7 +2888,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From5"
-		  SID			  "24:1022"
+		  SID			  "24:1337"
 		  Position		  [15, 201, 85, 229]
 		  ZOrder		  5
 		  GotoTag		  "T84_7632_10879212027899"
@@ -2897,7 +2897,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From6"
-		  SID			  "24:1023"
+		  SID			  "24:1338"
 		  Position		  [15, 246, 85, 274]
 		  ZOrder		  6
 		  GotoTag		  "T84_7633_10883973407589"
@@ -2906,7 +2906,7 @@ Model {
 		Block {
 		  BlockType		  Mux
 		  Name			  "Mux"
-		  SID			  "24:996"
+		  SID			  "24:1311"
 		  Ports			  [6, 1]
 		  Position		  [325, 272, 330, 613]
 		  ZOrder		  -1
@@ -2917,7 +2917,7 @@ Model {
 		Block {
 		  BlockType		  Outport
 		  Name			  "gates"
-		  SID			  "24:997"
+		  SID			  "24:1312"
 		  Position		  [390, 433, 420, 447]
 		  ZOrder		  -2
 		  IconDisplay		  "Port number"
@@ -2977,7 +2977,7 @@ Model {
 	    Block {
 	      BlockType		      Mux
 	      Name		      "Mux"
-	      SID		      "24:998"
+	      SID		      "24:1313"
 	      Ports		      [2, 1]
 	      Position		      [210, 30, 215, 125]
 	      ZOrder		      -2
@@ -2988,7 +2988,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "Sources"
-	      SID		      "24:999"
+	      SID		      "24:1314"
 	      Ports		      [0, 1]
 	      Position		      [20, 42, 85, 68]
 	      ZOrder		      -3
@@ -3017,7 +3017,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From1"
-		  SID			  "24:1037"
+		  SID			  "24:1352"
 		  Position		  [15, 21, 85, 49]
 		  ZOrder		  1
 		  GotoTag		  "T81_7607_11369711329361"
@@ -3026,7 +3026,7 @@ Model {
 		Block {
 		  BlockType		  From
 		  Name			  "From2"
-		  SID			  "24:1038"
+		  SID			  "24:1353"
 		  Position		  [15, 66, 85, 94]
 		  ZOrder		  2
 		  GotoTag		  "T52_4937_4678163658371"
@@ -3035,7 +3035,7 @@ Model {
 		Block {
 		  BlockType		  Mux
 		  Name			  "Mux"
-		  SID			  "24:1000"
+		  SID			  "24:1315"
 		  Ports			  [2, 1]
 		  Position		  [325, 270, 330, 610]
 		  ZOrder		  -1
@@ -3045,7 +3045,7 @@ Model {
 		Block {
 		  BlockType		  Mux
 		  Name			  "Mux_u"
-		  SID			  "24:1001"
+		  SID			  "24:1316"
 		  Ports			  [2, 1]
 		  Position		  [465, 374, 470, 461]
 		  ZOrder		  -2
@@ -3055,7 +3055,7 @@ Model {
 		Block {
 		  BlockType		  Constant
 		  Name			  "SwitchCurrents"
-		  SID			  "24:1002"
+		  SID			  "24:1317"
 		  Position		  [350, 379, 430, 411]
 		  ZOrder		  -3
 		  NamePlacement		  "alternate"
@@ -3064,7 +3064,7 @@ Model {
 		Block {
 		  BlockType		  Outport
 		  Name			  "u"
-		  SID			  "24:1003"
+		  SID			  "24:1318"
 		  Position		  [505, 413, 535, 427]
 		  ZOrder		  -4
 		  IconDisplay		  "Port number"
@@ -3109,7 +3109,7 @@ Model {
 	    Block {
 	      BlockType		      S-Function
 	      Name		      "State-Space"
-	      SID		      "24:1004"
+	      SID		      "24:1319"
 	      Ports		      [1, 1]
 	      Position		      [240, 58, 320, 102]
 	      ZOrder		      -4
@@ -3122,7 +3122,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "Yout"
-	      SID		      "24:1005"
+	      SID		      "24:1320"
 	      Ports		      [1]
 	      Position		      [455, 68, 520, 92]
 	      ZOrder		      -5
@@ -3151,7 +3151,7 @@ Model {
 		Block {
 		  BlockType		  Inport
 		  Name			  "v,i"
-		  SID			  "24:1006"
+		  SID			  "24:1321"
 		  Position		  [15, 373, 45, 387]
 		  ZOrder		  -1
 		  IconDisplay		  "Port number"
@@ -3159,7 +3159,7 @@ Model {
 		Block {
 		  BlockType		  Demux
 		  Name			  "Demux"
-		  SID			  "24:1007"
+		  SID			  "24:1322"
 		  Ports			  [1, 13]
 		  Position		  [120, 191, 125, 569]
 		  ZOrder		  -2
@@ -3171,7 +3171,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto1"
-		  SID			  "24:1024"
+		  SID			  "24:1339"
 		  Position		  [325, 21, 395, 49]
 		  ZOrder		  1
 		  GotoTag		  "T87_7964_12280747982799"
@@ -3180,7 +3180,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto10"
-		  SID			  "24:1033"
+		  SID			  "24:1348"
 		  Position		  [325, 426, 395, 454]
 		  ZOrder		  10
 		  GotoTag		  "T76_6786_8512285196604"
@@ -3189,7 +3189,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto11"
-		  SID			  "24:1034"
+		  SID			  "24:1349"
 		  Position		  [325, 471, 395, 499]
 		  ZOrder		  11
 		  GotoTag		  "T76_6773_8440943273465"
@@ -3198,7 +3198,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto12"
-		  SID			  "24:1035"
+		  SID			  "24:1350"
 		  Position		  [325, 516, 395, 544]
 		  ZOrder		  12
 		  GotoTag		  "T76_6772_8437428363221"
@@ -3207,7 +3207,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto13"
-		  SID			  "24:1036"
+		  SID			  "24:1351"
 		  Position		  [325, 561, 395, 589]
 		  ZOrder		  13
 		  GotoTag		  "T76_6774_8444662436604"
@@ -3216,7 +3216,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto2"
-		  SID			  "24:1025"
+		  SID			  "24:1340"
 		  Position		  [325, 66, 395, 94]
 		  ZOrder		  2
 		  GotoTag		  "T87_7965_12284489395769"
@@ -3225,7 +3225,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto3"
-		  SID			  "24:1026"
+		  SID			  "24:1341"
 		  Position		  [325, 111, 395, 139]
 		  ZOrder		  3
 		  GotoTag		  "T87_7966_12288471860692"
@@ -3234,7 +3234,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto4"
-		  SID			  "24:1027"
+		  SID			  "24:1342"
 		  Position		  [325, 156, 395, 184]
 		  ZOrder		  4
 		  GotoTag		  "T87_7965_12279270337731"
@@ -3243,7 +3243,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto5"
-		  SID			  "24:1028"
+		  SID			  "24:1343"
 		  Position		  [325, 201, 395, 229]
 		  ZOrder		  5
 		  GotoTag		  "T87_7966_12283009303611"
@@ -3252,7 +3252,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto6"
-		  SID			  "24:1029"
+		  SID			  "24:1344"
 		  Position		  [325, 246, 395, 274]
 		  ZOrder		  6
 		  GotoTag		  "T87_7967_12286989321446"
@@ -3261,7 +3261,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto7"
-		  SID			  "24:1030"
+		  SID			  "24:1345"
 		  Position		  [325, 291, 395, 319]
 		  ZOrder		  7
 		  GotoTag		  "T81_7602_11291811017022"
@@ -3270,7 +3270,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto8"
-		  SID			  "24:1031"
+		  SID			  "24:1346"
 		  Position		  [325, 336, 395, 364]
 		  ZOrder		  8
 		  GotoTag		  "T76_6785_8508597749465"
@@ -3279,7 +3279,7 @@ Model {
 		Block {
 		  BlockType		  Goto
 		  Name			  "Goto9"
-		  SID			  "24:1032"
+		  SID			  "24:1347"
 		  Position		  [325, 381, 395, 409]
 		  ZOrder		  9
 		  GotoTag		  "T76_6784_8505114555221"
@@ -3388,7 +3388,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "conversion"
-	      SID		      "24:1008"
+	      SID		      "24:1323"
 	      Ports		      [1, 1]
 	      Position		      [345, 59, 430, 101]
 	      ZOrder		      -6
@@ -3415,7 +3415,7 @@ Model {
 		Block {
 		  BlockType		  Inport
 		  Name			  "Yout"
-		  SID			  "24:1009"
+		  SID			  "24:1324"
 		  Position		  [25, 38, 55, 52]
 		  ZOrder		  -1
 		  IconDisplay		  "Port number"
@@ -3423,7 +3423,7 @@ Model {
 		Block {
 		  BlockType		  Demux
 		  Name			  "Demux1"
-		  SID			  "24:1010"
+		  SID			  "24:1325"
 		  Ports			  [1, 2]
 		  Position		  [80, 26, 85, 64]
 		  ZOrder		  -2
@@ -3434,7 +3434,7 @@ Model {
 		Block {
 		  BlockType		  RealImagToComplex
 		  Name			  "Real-Imag to\nComplex"
-		  SID			  "24:1011"
+		  SID			  "24:1326"
 		  Ports			  [2, 1]
 		  Position		  [135, 26, 155, 64]
 		  ZOrder		  -3
@@ -3443,7 +3443,7 @@ Model {
 		Block {
 		  BlockType		  Outport
 		  Name			  "Complex"
-		  SID			  "24:1012"
+		  SID			  "24:1327"
 		  Position		  [180, 38, 210, 52]
 		  ZOrder		  -4
 		  IconDisplay		  "Port number"
@@ -3481,7 +3481,7 @@ Model {
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "conversion "
-	      SID		      "24:1013"
+	      SID		      "24:1328"
 	      Ports		      [1, 1]
 	      Position		      [110, 38, 185, 72]
 	      ZOrder		      -7
@@ -3509,7 +3509,7 @@ Model {
 		Block {
 		  BlockType		  Inport
 		  Name			  "Complex"
-		  SID			  "24:1014"
+		  SID			  "24:1329"
 		  Position		  [25, 53, 55, 67]
 		  ZOrder		  -1
 		  IconDisplay		  "Port number"
@@ -3517,7 +3517,7 @@ Model {
 		Block {
 		  BlockType		  ComplexToRealImag
 		  Name			  "Complex to\nReal-Imag"
-		  SID			  "24:1015"
+		  SID			  "24:1330"
 		  Ports			  [1, 2]
 		  Position		  [80, 34, 140, 81]
 		  ZOrder		  -2
@@ -3526,7 +3526,7 @@ Model {
 		Block {
 		  BlockType		  Mux
 		  Name			  "Mux"
-		  SID			  "24:1016"
+		  SID			  "24:1331"
 		  Ports			  [2, 1]
 		  Position		  [170, 30, 175, 85]
 		  ZOrder		  -3
@@ -3537,7 +3537,7 @@ Model {
 		Block {
 		  BlockType		  Outport
 		  Name			  "u"
-		  SID			  "24:1017"
+		  SID			  "24:1332"
 		  Position		  [200, 53, 230, 67]
 		  ZOrder		  -4
 		  IconDisplay		  "Port number"
