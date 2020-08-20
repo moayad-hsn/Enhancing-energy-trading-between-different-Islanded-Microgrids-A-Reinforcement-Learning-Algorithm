@@ -9,6 +9,8 @@ from gym import spaces
 import random
 
 
+
+
 #constants
 SCHOOL_MAX_LOAD = 6_012.0
 HOUSE_MAX_LOAD =  5_678.0
@@ -31,7 +33,7 @@ distances = {"Um_Bader_Tannah": 10, "Um_Bader_Hamza_Elsheikh": 50, "Tannah_Hamza
 
 NETWORK_PRICE = 19 #In cents
 
-MAX_STEPS = 10_000
+MAX_STEPS = 400
 
 
 #Helper Classes
@@ -113,8 +115,10 @@ class Generation:
 		for i in range(len(self.wind_generation)):
 			if self.wind_generation[i] <0:
 				self.wind_generation[i] = 0
+		self.wind_generation = 0
 		self.generation = self.solar_generation + self.wind_generation
 		self.max_generation = max(self.generation)
+		print(name,self.max_generation)
 
 #given current time, give the total generation of the solar and wind units		
 	def current_generation(self, time):
@@ -222,7 +226,7 @@ class MicrogridEnv (gym.Env):
 
 		#print(self.main_mG.unit_price, self.main_mG.battery.max_capacity, NETWORK_PRICE)
 		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
-		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0, 0.0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE, MAX_STEPS]), dtype = np.float32)
+		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE]), dtype = np.float32)
 		
 
 
@@ -233,7 +237,7 @@ class MicrogridEnv (gym.Env):
 		current_load, current_generation, remaining_capacity = self.main_mG.state(self.current_date)
 		time_s = self.time_step
 		previous_price = self.current_price
-		state = np.array([remaining_capacity, current_load, current_generation, previous_price, time_s])
+		state = [remaining_capacity, current_load[0], current_generation[0], previous_price, time_s]
 		return state
 
 	def reset(self):
@@ -289,12 +293,14 @@ class MicrogridEnv (gym.Env):
 						reward -= rem_amount / amount
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
 						self.energy_bought.append(amount - rem_amount)
+
 					else:
 						target_mg.battery.supply(offer)
 						main_mg.battery.charge(offer)
 						rem_amount = amount - offer
 						reward -= rem_amount / amount
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						reward = reward[0]
 					self.energy_bought.append(amount - rem_amount)
 			else:
 				reward -= 1
@@ -319,6 +325,7 @@ class MicrogridEnv (gym.Env):
 						rem_amount = amount - offer
 						reward -= rem_amount / amount
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						reward = reward[0]
 						self.energy_sold.append(amount - rem_amount)
 			else:
 				reward -= 1
@@ -355,64 +362,18 @@ class Grid:
 '''
 
 
-if __name__ == "__main__":
-	env = MicrogridEnv()
-	env.seed(1)
-	rewards =[]
-	state=env.reset()
-	steps = 0
-	while True:
-		action = env.action_space.sample()
-		#print(action)
-		state, reward, terminal, _ = env.step(action)
-		print(reward)
-		rewards.append(reward)
-		steps +=1
-		print (steps)
-		if terminal:
-			break
 
-		if steps > MAX_STEPS:
-			break
-	print("Total rewards:", sum(rewards))
-	''
-	'''parser = argparse.ArgumentParser()
-    parser.add_argument("--cuda", default=False, action="store_true", help="Enable cuda")
-    parser.add_argument("-n", "--name", required=True, help="Name of the run")
-    args = parser.parse_args()
-    device = torch.device("cuda" if args.cuda else "cpu")
-    
 
-    # Testing the environment
-    # Initialize the environment
-    #env = MicrogridEnv()
-    #env.seed(1)
-    # Save the rewards in a list
-    #rewards = []
-    # reset the environment to the initial state
-    #state = env.reset()
-    # Call render to prepare the visualization
-    #env.render()
-    # Interact with the environment (here we choose random actions) until the terminal state is reached
-    while True:
-        # Pick an action from the action space (here we pick an index between 0 and 80)
-        action = env.action_space.sample()
-        # Using the index we get the actual action that we will send to the environment
-        print(ACTIONS[action])
-        # Perform a step in the environment given the chosen action
-        state, reward, terminal, _ = env.step(action)
-        env.render()
-        print(reward)
-        rewards.append(reward)
-        if terminal:
-            break
-    print("Total Reward:",sum(rewards))
 
-    # Plot the TCL SoCs 
-    states = np.array(rewards)
-    pyplot.plot(rewards)
-    pyplot.title("rewards")
-    pyplot.xlabel("Time")
-    pyplot.ylabel("rewards")
-    pyplot.show()
-'''
+
+
+
+
+
+
+
+
+
+
+
+

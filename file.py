@@ -31,11 +31,8 @@ action_space = spaces.Box(low=np.array([0.0,0.0,0.0,10.0]), high=np.array([3.0,2
 
 print(action_space.sample())
 """
-arr = np.array([1,0,0,1])
-a, b, c, d = arr 
-
-a = np.ones((1,))
-b = np.ones((0,))
-
-a+=b
-print(a, b)
+b = [10,20,30]
+a = {b: 10}
+a[10,20, 30] = 50
+a[10,20,21] +=1
+print(a)
