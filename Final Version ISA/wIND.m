@@ -1,5 +1,5 @@
 clear all;
-data=readtable("Wind.csv");
+data=readtable("Wind-54.csv");
 
 
 timeStamp = data.TimeStamp;
