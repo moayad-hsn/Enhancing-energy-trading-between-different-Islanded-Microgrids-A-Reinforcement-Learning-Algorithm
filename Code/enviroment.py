@@ -7,8 +7,7 @@ from matplotlib import pyplot
 import gym
 from gym import spaces
 import random
-
-
+import math
 
 
 #constants
@@ -33,7 +32,7 @@ distances = {"Um_Bader_Tannah": 10, "Um_Bader_Hamza_Elsheikh": 50, "Tannah_Hamza
 
 NETWORK_PRICE = 19 #In cents
 
-MAX_STEPS = 400
+MAX_STEPS = 50
 
 
 #Helper Classes
@@ -226,14 +225,14 @@ class MicrogridEnv (gym.Env):
 
 		#print(self.main_mG.unit_price, self.main_mG.battery.max_capacity, NETWORK_PRICE)
 		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
-		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE]), dtype = np.float32)
-		
+		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0, 0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE, MAX_STEPS]), dtype = np.float32)
+		print("obs size", self.observation_space.shape[0])
 
 
 	def _status(self):
 		if self.time_step >= len(self.dates):
 			self.time_step = 0
-		self.current_date = self.dates[self.time_step]
+		self.current_date = self.dates[self.time_step + self.start_date_idx]
 		current_load, current_generation, remaining_capacity = self.main_mG.state(self.current_date)
 		time_s = self.time_step
 		previous_price = self.current_price
@@ -241,7 +240,9 @@ class MicrogridEnv (gym.Env):
 		return state
 
 	def reset(self):
-		self.start_date = self.dates[random.randint(0,len(self.dates))]
+		self.start_date_idx = random.randint(0,len(self.dates))
+		self.start_date = self.dates[self.start_date_idx]
+		self.current_date = self.start_date
 		self.main_mG.battery = self.main_mG._create_battery(HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
 		self.current_price = NETWORK_PRICE
 		self.energy_bought = []
@@ -266,27 +267,33 @@ class MicrogridEnv (gym.Env):
 
 
 	def step(self, action):
+		#print("Action: ",action)
 		action_type = action[0]
 		target_mg_idx = action[1]
 		amount = action[2]
 		price = action[3]
 		reward = 0
+		is_done = False
 		main_mg = self.main_mG
+		
 
-
+		#if math.isnan(target_mg_idx):
+		#	print("Nan tgt: ",target_mg_idx)	
 		if target_mg_idx < 1:
 			target_mg = self.first_mg
 		else:
 			target_mg = self.second_mg
-			
 
 		amount += self._travel_loss(target_mg, amount)
 		offer = target_mg.to_trade(self.current_date)
-		
+		if math.isnan(action_type):
+			print("Nan type: ",action_type)	
 		if action_type <1:#buy from target MG
 			if price >= target_mg.unit_price:
 				if offer != 0:
-					if offer >= amount:
+					if amount == 0:
+						reward += 0
+					elif offer >= amount:
 						target_mg.battery.supply(amount)
 						main_mg.battery.charge(amount)
 						rem_amount = 0
@@ -301,7 +308,7 @@ class MicrogridEnv (gym.Env):
 						reward -= rem_amount / amount
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
 						reward = reward[0]
-					self.energy_bought.append(amount - rem_amount)
+						self.energy_bought.append(amount - rem_amount)
 			else:
 				reward -= 1
 			self.prices.append(price)
@@ -311,8 +318,9 @@ class MicrogridEnv (gym.Env):
 		elif action_type < 2:
 			if price >= main_mg.unit_price and price <= NETWORK_PRICE:
 				if offer != 0:
-
-					if offer >= amount:
+					if amount == 0:
+						reward += 0
+					elif offer >= amount:
 						main_mg.battery.supply(amount)
 						target_mg.battery.charge(amount)
 						rem_amount = 0
@@ -338,7 +346,10 @@ class MicrogridEnv (gym.Env):
 			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 		self.time_step +=1
 		state = self._status()
+		if self.time_step % 100 == 0 :
+			print(self.time_step)
 		if self.time_step >= MAX_STEPS:
+			self.time_step = 0
 			is_done = True
 		else:
 			is_done = False
