@@ -406,6 +406,8 @@ class MicrogridEnv (gym.Env):
 		#if reward == 0:
 		#	print("//////////////////////////////////////////////////////////////////////////////////////////////////////////////")
 		state = self._status()
+		tgt_total_load, tgt_total_generation, tgt_battery_status = target_mg.state()
+		target_mg.battery.charge(tgt_total_load - tgt_total_load)
 		is_done = False
 		#print("sold: ",self.energy_sold)
 		#print("bought: ",self.energy_bought)
