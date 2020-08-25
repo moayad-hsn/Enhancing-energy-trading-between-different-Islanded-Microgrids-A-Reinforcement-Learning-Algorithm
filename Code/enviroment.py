@@ -1,5 +1,3 @@
-#lets get this party started
-
 #Imports
 import pandas as pd
 import numpy as np
@@ -8,7 +6,6 @@ import gym
 from gym import spaces
 import random
 import math
-
 
 #constants
 SCHOOL_MAX_LOAD = 6.012
@@ -29,11 +26,9 @@ TANNAH_BATTERY_PARAMETERS = [300, 0.02, 150, 0.3]
 
 distances = {"Um_Bader_Tannah": 10, "Um_Bader_Hamza_Elsheikh": 50, "Tannah_Hamza_Elsheikh": 30, "Tannah_Um_Bader": 10, "Hamza_Elsheikh_Um_Bader": 50, "Hamza_Elsheikh_Tannah": 30} 
 
-
 NETWORK_PRICE = 19 #In cents
 
 MAX_STEPS = 50
-
 
 #Helper Classes
 
@@ -56,7 +51,6 @@ class Load:
 		single_load = self._current_single_Load(time)
 		
 		return single_load * self.num_of_units
-
 
 #battery Class, to define the storage of the system
 class Battery:
@@ -93,18 +87,6 @@ class Battery:
 		
 		return min(amount, remaining)
 	
-#dissipate the battery with the factor, might not need it probably
-'''
-	def dissipate(self):
-		self.remaining_capacity = self.remaining_capacity * math.exp(- self.dissipation)
-
-	def SOC(self):
-		self._SOC = self.remaining_capacity/self.max_capacity
-		return self._SOC
-
-'''
-
-
 class Generation:
 	def __init__(self, name, maxCapacity = None):
 		self.solar_df = pd.read_csv("data/Solar/" + name + "_solar_generation.csv")
@@ -123,18 +105,7 @@ class Generation:
 	def current_generation(self, time):
 		idx = self.solar_df[self.solar_df["Time"] == time].index.values
 
-		return self.generation[idx]/1000 #KW
-
-#do this if were doing and expectation of wind/solar power generation, Am I doing it? well lets see
-#	def expected_generation(self, time):
-#		pass
-
-
-#	def fewHourExpected(self, time, timeStep1, timeStep2, tume ):
-#		return self.power[]
-
-
-
+		return (self.generation[idx]/1000) #KW
 
 class Microgrid:
 	def __init__(self, name, load_parameters, battery_parameters):
@@ -208,9 +179,6 @@ class Microgrid:
 
 		return load
 
-
-
-
 class MicrogridEnv (gym.Env):
 	def __init__(self):
 		self.main_mG = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
@@ -222,14 +190,10 @@ class MicrogridEnv (gym.Env):
 		self.start_date = self.dates[self.time_step]
 		self.current_price = NETWORK_PRICE
 
-
-
 		#print(self.main_mG.unit_price, self.main_mG.battery.max_capacity, NETWORK_PRICE)
 		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
-		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0]), high =np.array([self.main_mG.battery.max_capacity, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE]), dtype = np.float32)
+		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0]), high =np.array([1, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE]), dtype = np.float32)
 		
-
-
 	def _status(self):
 		if self.time_step + self.start_date_idx >= len(self.dates):
 			self.time_step = 0
@@ -245,6 +209,7 @@ class MicrogridEnv (gym.Env):
 			state = [remaining_capacity[0], current_load[0], current_generation[0], previous_price]
 		else:
 			state = [remaining_capacity, current_load[0], current_generation[0], previous_price]
+
 		return state
 
 	def to_trade_m (self, mg):
@@ -254,10 +219,10 @@ class MicrogridEnv (gym.Env):
 		a = np.array([1,2,3])
 		if type(rc) == type(a):
 			state = rc[0] + cg[0]
-			state -=  cl[0]
+			state =  cl[0] - state
 		else:
 			state = rc + cg[0]
-			state -=  cl[0]
+			state -=  cl[0] #- state
 		return state
 
 	def reset(self):
@@ -269,6 +234,7 @@ class MicrogridEnv (gym.Env):
 		self.energy_bought = []
 		self.energy_sold = []
 		self.prices = []
+		self.tot = []
 
 		state = self._status()
 		return state
@@ -284,8 +250,6 @@ class MicrogridEnv (gym.Env):
 		loss = ((amount**2) * (base_res*distance))/(voltage **2)
 		
 		return loss
-
-
 
 	def step(self, action):
 		#print("Action: ",action)
@@ -304,8 +268,6 @@ class MicrogridEnv (gym.Env):
 			target_mg = self.first_mg
 		else:
 			target_mg = self.second_mg
-
-		
 		
 		needed_main_mg = self.to_trade_m(main_mg)#main_mg.to_trade(self.current_date)
 		#print(self.current_date)
@@ -333,8 +295,9 @@ class MicrogridEnv (gym.Env):
 						rem_amount = 0
 						reward -= rem_amount / amount
 		#				print("reward", reward)
-						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						reward += (NETWORK_PRICE - price)/main_mg.unit_price
 						self.energy_bought.append(amount - rem_amount)
+						self.energy_sold.append(0)
 		#				print("to trade?: and reward",self.to_trade_m(main_mg), reward)
 
 					else:
@@ -344,9 +307,10 @@ class MicrogridEnv (gym.Env):
 						rem_amount = amount - offer
 						reward -= rem_amount / amount
 		#				print("reward", reward)
-						reward += (price - main_mg.unit_price)/main_mg.unit_price
+						reward += (NETWORK_PRICE - price)/main_mg.unit_price
 						reward = reward[0]
 						self.energy_bought.append(amount - rem_amount)
+						self.energy_sold.append(0)
 		#				print("to trade?: and reward",self.to_trade_m(main_mg), reward)
 				else:
 					reward -= 1
@@ -355,7 +319,8 @@ class MicrogridEnv (gym.Env):
 		#		print("minus here unit_price")
 				reward -= 1
 			self.prices.append(price)
-			tot = self.to_trade_m(main_mg)
+			self.energy_bought.append(0)
+			self.energy_sold.append(0)
 			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 
 
@@ -375,6 +340,7 @@ class MicrogridEnv (gym.Env):
 						reward -= rem_amount / amount
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
 						self.energy_sold.append(amount - rem_amount)
+						self.energy_bought.append(0)
 					else:
 						main_mg.battery.supply(offer)
 						target_mg.battery.charge(offer)
@@ -383,6 +349,7 @@ class MicrogridEnv (gym.Env):
 						reward += (price - main_mg.unit_price)/main_mg.unit_price
 						reward = reward[0]
 						self.energy_sold.append(amount - rem_amount)
+						self.energy_bought.append(0)
 				else:
 					reward -= 1
 		#			print("offer neg again")
@@ -390,23 +357,26 @@ class MicrogridEnv (gym.Env):
 		#		print("minus here unit and network price")
 				reward -= 1
 			self.prices.append(price)
-			tot = self.to_trade_m(main_mg)
+			self.energy_bought.append(0)
+			self.energy_sold.append(0)
 			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
-			
-
 
 		else:
-			tot = self.to_trade_m(main_mg)
+			self.prices.append(price)
+			self.energy_bought.append(0)
+			self.energy_sold.append(0)
 			main_mg.supply(main_mg.total_load(self.current_date), self.current_date)
 
-		if tot < 1 and tot >0:
+		tot = self.to_trade_m(main_mg)
+		if tot >0:
 		#	print("bingooooooooooooooooo")
 			reward += 100
 		self.time_step +=1
+		self.tot.append(tot)
 		#if reward == 0:
 		#	print("//////////////////////////////////////////////////////////////////////////////////////////////////////////////")
 		state = self._status()
-		tgt_total_load, tgt_total_generation, tgt_battery_status = target_mg.state()
+		tgt_total_load, tgt_total_generation, tgt_battery_status = target_mg.state(self.current_date)
 		target_mg.battery.charge(tgt_total_load - tgt_total_load)
 		is_done = False
 		#print("sold: ",self.energy_sold)
@@ -417,36 +387,5 @@ class MicrogridEnv (gym.Env):
 		#print("reward", reward)
 		return state, reward, is_done, {}
 
-
 	def render(self):
 		pass
-
-
-
-
-
-'''
-class Grid:
-#this is for a single MG, we here set the extra produciton or the needed power to acheive stability to the entire system.
-	def __init__():
-		self.distanceFromMG = distanceFromMG
-		self.transmisionLoss = transmisionLoss
-		self.additionalProducion = additionalProducion
-'''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

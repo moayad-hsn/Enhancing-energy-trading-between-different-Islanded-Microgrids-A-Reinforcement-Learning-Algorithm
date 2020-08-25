@@ -8,12 +8,12 @@
     "act_noise":	0.1,
     "actor_critic":	"MLPActorCritic",
     "batch_size":	100,
-    "env_fn":	"<function <lambda> at 0x0000012F067D1E18>",
+    "env_fn":	"<function <lambda> at 0x0000018725CF2E18>",
     "epochs":	50,
     "exp_name":	"ddpg",
     "gamma":	0.99,
     "logger":	{
-        "<Code.utils.logx.EpochLogger object at 0x0000012F0676D2B0>":	{
+        "<Code.utils.logx.EpochLogger object at 0x0000018725C9DEB8>":	{
             "epoch_dict":	{},
             "exp_name":	"ddpg",
             "first_row":	true,
