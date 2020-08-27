@@ -1,0 +1,2 @@
+Epoch	AverageEpRet	StdEpRet	MaxEpRet	MinEpRet	AvgEnergyBought	AvgEnergySold	AvgPriceBought	EpLen	AverageVVals	StdVVals	MaxVVals	MinVVals	TotalEnvInteracts	LossPi	LossV	DeltaLossPi	DeltaLossV	Entropy	KL	ClipFrac	StopIter	Time
+0	30900.5	2082.1038	32207.0	27297.0	nan	nan	nan	1000.0	0.20365866	0.13160059	0.42047292	-0.29568344	4000	1.320839e-07	8285440.5	-0.017438132	-50224.0	0.9189386	0.01128901	0.13875	79.0	477.4676048755646

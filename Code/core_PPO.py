@@ -106,12 +106,12 @@ class MLPGaussianActor(Actor):
         self.mu_net = mlp([obs_dim] + list(hidden_sizes) + [act_dim], activation)#actor_newtork(obs_dim, act_dim, hidden_sizes[0])#
 
     def _distribution(self, obs):
-        mu = self.mu_net(obs).to('cuda')
+        mu = self.mu_net(obs)
         std = torch.exp(self.log_std)
         return Normal(mu, std)
 
     def _log_prob_from_distribution(self, pi, act):
-        return pi.log_prob(act).sum(axis=-1).to('cuda')    # Last axis sum needed for Torch Normal distribution
+        return pi.log_prob(act).sum(axis=-1)    # Last axis sum needed for Torch Normal distribution
 
 
 class MLPCritic(nn.Module):
@@ -145,9 +145,9 @@ class MLPActorCritic(nn.Module):
 
     def step(self, obs):
         with torch.no_grad():
-            pi = self.pi._distribution(obs).to('cuda')
+            pi = self.pi._distribution(obs)
             a = pi.sample()
-            logp_a = self.pi._log_prob_from_distribution(pi, a).to('cuda')
+            logp_a = self.pi._log_prob_from_distribution(pi, a)
             v = self.v(obs)
         return a.cpu().data.numpy(), v.cpu().data.numpy(), logp_a.cpu().data.numpy()
 
