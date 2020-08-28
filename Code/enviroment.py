@@ -7,13 +7,14 @@ from gym import spaces
 import random
 import math
 
-#constants
+#CONSTANTS
+#MAXIMUM LOADS
 SCHOOL_MAX_LOAD = 6.012
 HOUSE_MAX_LOAD =  5.678
 MOSQUE_MAX_LOAD = 4.324
 HEALTH_CENTER_MAX_LOAD = 5.8
 WATER_PUMP_MAX_LOAD = 0.77
-
+#MICROGRIDS PARAMETERS
 UM_BADER_LOAD_PARAMETERS = [70, 1, 2, 1, 2]
 UM_BADER_MAX_LOAD = 500
 UM_BADER_BATTERY_PARAMETERS = [500, 0.02, 300, 0.3]
@@ -24,11 +25,9 @@ TANNAH_LOAD_PARAMETERS = [45, 0, 1, 0, 1]
 TANNAH_MAX_LOAD = 300
 TANNAH_BATTERY_PARAMETERS = [300, 0.02, 150, 0.3]
 
+#DISTANCES AND PRICES
 distances = {"Um_Bader_Tannah": 10, "Um_Bader_Hamza_Elsheikh": 50, "Tannah_Hamza_Elsheikh": 30, "Tannah_Um_Bader": 10, "Hamza_Elsheikh_Um_Bader": 50, "Hamza_Elsheikh_Tannah": 30} 
-
 NETWORK_PRICE = 19 #In cents
-
-MAX_STEPS = 50
 
 #Helper Classes
 
@@ -44,26 +43,19 @@ class Load:
 	def _current_single_Load(self, time):
 		idx = self.usage_trends_df[self.usage_trends_df["Time"] == time].index.values
 		current_load = self.max_load * self.usage_trends_values[idx]
-		
 		return current_load
 
 	def current_total_load(self, time):
 		single_load = self._current_single_Load(time)
-		
 		return single_load * self.num_of_units
 
 #battery Class, to define the storage of the system
 class Battery:
 	def __init__(self, max_capacity, discharge_cofficient, remaining_capacity, charge_rate):
 		self.max_capacity = max_capacity #full_charge_capacity
-		#self.dissipation = dissipation #Dissipation_cofficient
 		self.discharge_cofficient = discharge_cofficient #Discharge_coefficient
 		self.remaining_capacity = remaining_capacity #Remaining_Capacity
 		self.charge_rate = charge_rate #percentage_charged_from_inputed_amount
-		#self.charge_loss = charge_loss #Charging_Loss
-		#self.max_charge_time = max_charge_time #Maximum_Charging_Time
-		#self.max_power_output = max_power_output #Max_power_battery_can_output_per_timestep
-		#self.charge_step = charge_step #Charging_Step
 
 #charges the battery with given amount and returns leftover amount to be returned if amount + currnet capacity > max capacity
 	def charge(self, amount):
@@ -74,17 +66,14 @@ class Battery:
 			self.remaining_capacity+= amount
 			leftover = self.remaining_capacity - self.max_capacity
 			self.remaining_capacity = min(self.max_capacity, self.remaining_capacity)
-			
 			return max(leftover,0) 
 
 #takes energy from the battery providing the needed amount and returns amount provided form the battery
 
 	def supply(self, amount):
 		remaining = self.remaining_capacity
-		#print(amount)
 		self.remaining_capacity -= amount
 		self.remaining_capacity = max(self.remaining_capacity,0)
-		
 		return min(amount, remaining)
 	
 class Generation:
@@ -99,12 +88,9 @@ class Generation:
 		self.wind_generation = 0
 		self.generation = self.solar_generation + self.wind_generation
 		self.max_generation = max(self.generation)
-		#print(name,self.max_generation)
-
-#given current time, give the total generation of the solar and wind units		
+		#given current time, give the total generation of the solar and wind units		
 	def current_generation(self, time):
 		idx = self.solar_df[self.solar_df["Time"] == time].index.values
-
 		return (self.generation[idx]/1000) #KW
 
 class Microgrid:
@@ -112,7 +98,6 @@ class Microgrid:
 		self.name = name #name of the microgrid used for data loading
 		self.load_parameters = load_parameters #np array of the parameters to create the load of the microgrid that is the number of schools, houses, mosques, health centers and water pumps
 		self.battery_parameters = battery_parameters #np array of the parameters to create the battery of the microgrid
-		#self.distance_to_center = distance_to_center # distance to a central point between the microgrids, used for loss calculations
 		self.battery = self._create_battery(battery_parameters)
 		self.houses, self.schools, self.mosques, self.health_centers, self.water_pumps= self._create_loads(load_parameters)
 		self.generation = Generation(name)
@@ -126,7 +111,6 @@ class Microgrid:
 		remaining_capacity = battery_parameters[2]
 		charge_rate  = battery_parameters[3]
 		battery = Battery(max_capacity, discharge_cofficient, remaining_capacity, charge_rate)
-		
 		return battery
 
 #creates the loads of the MG, using the number of units for each load and its name for data reasons
@@ -137,7 +121,6 @@ class Microgrid:
 		mosques_load = Load("Mosque", MOSQUE_MAX_LOAD, num_mosques)
 		health_centers_load = Load("Health_center", HEALTH_CENTER_MAX_LOAD, num_health_centers)
 		water_pumps_load = Load("Water_pump", WATER_PUMP_MAX_LOAD, num_water_pumps)
-
 		return houses_load, schools_load, mosques_load, health_centers_load, water_pumps_load
 
 #returns the total load by all MG load units
@@ -148,7 +131,6 @@ class Microgrid:
 		health_centers_load = self.health_centers.current_total_load(time)
 		water_pumps_load = self.water_pumps.current_total_load(time)
 		total_load = houses_load + schools_load + mosques_load + health_centers_load + water_pumps_load
-		
 		return total_load
 
 #current status of the MG containing it's battery's remaining capacity, it's current power generation and its current total load
@@ -156,13 +138,11 @@ class Microgrid:
 		total_generation = self.generation.current_generation(time)
 		total_load = self.total_load(time)
 		battery_status = self.battery.remaining_capacity
-
 		return total_load, total_generation, battery_status
 
 	def to_trade(self, time):
 		load, generation, battery = self.state(time)
 		to_trade = load - (generation + battery)	
-		#print("l, g, b", load, generation, battery)	
 		return to_trade
 
 	def supply(self, load, time):
@@ -176,7 +156,6 @@ class Microgrid:
 				self.battery.remaining_capacity = 0
 		else:
 			load = 0
-
 		return load
 
 class MicrogridEnv (gym.Env):
@@ -184,13 +163,10 @@ class MicrogridEnv (gym.Env):
 		self.main_mG = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
 		self.first_mg = Microgrid("Um_Bader", UM_BADER_LOAD_PARAMETERS, UM_BADER_BATTERY_PARAMETERS)
 		self.second_mg= Microgrid("Tannah", TANNAH_LOAD_PARAMETERS, TANNAH_BATTERY_PARAMETERS)
-
 		self.time_step = 0
 		self.dates = np.array(pd.read_csv("data/Solar/" + self.main_mG.name + "_solar_generation.csv")["Time"])
 		self.start_date = self.dates[self.time_step]
 		self.current_price = NETWORK_PRICE
-
-		#print(self.main_mG.unit_price, self.main_mG.battery.max_capacity, NETWORK_PRICE)
 		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
 		self.observation_space =  spaces.Box(low =np.array([0.0, 0.0, 0.0, 0.0]), high =np.array([1, HAMZA_ELSHEIKH_MAX_LOAD, self.main_mG.generation.max_generation, NETWORK_PRICE]), dtype = np.float32)
 		
@@ -203,26 +179,21 @@ class MicrogridEnv (gym.Env):
 		time_s = self.time_step
 		previous_price = self.current_price
 		a = np.array([1,2,3])
-		#print(type(a))
-		#print(type(remaining_capacity), " rem c")
 		if type(remaining_capacity) == type(a):
 			state = [remaining_capacity[0], current_load[0], current_generation[0], previous_price]
 		else:
 			state = [remaining_capacity, current_load[0], current_generation[0], previous_price]
-
 		return state
 
 	def to_trade_m (self, mg):
-		#print("to trade state ", mg.state(self.current_date))
 		cl, cg, rc = mg.state(self.current_date)
-		#print("cl, cg, rc", cl, cg, rc)
 		a = np.array([1,2,3])
 		if type(rc) == type(a):
 			state = rc[0] + cg[0]
 			state =  cl[0] - state
 		else:
 			state = rc + cg[0]
-			state -=  cl[0] #- state
+			state -=  cl[0]
 		return state
 
 	def reset(self):
@@ -235,7 +206,6 @@ class MicrogridEnv (gym.Env):
 		self.energy_sold = []
 		self.prices = []
 		self.tot = []
-
 		state = self._status()
 		return state
 
@@ -248,11 +218,9 @@ class MicrogridEnv (gym.Env):
 		base_res = 1.1 #25mm aluminium
 		voltage = 33000#use sub_transmission?
 		loss = ((amount**2) * (base_res*distance))/(voltage **2)
-		
 		return loss
 
 	def step(self, action):
-		#print("Action: ",action)
 		action_type = action[0]
 		target_mg_idx = action[1]
 		amount = action[2]
@@ -260,63 +228,43 @@ class MicrogridEnv (gym.Env):
 		reward = 0
 		is_done = False
 		main_mg = self.main_mG
-		#print("action: ", action)
-		#print("status: ", self._status())
-		#if math.isnan(target_mg_idx):
-		#	print("Nan tgt: ",target_mg_idx)	
-		if target_mg_idx < 1:
 			target_mg = self.first_mg
 		else:
 			target_mg = self.second_mg
 		
-		needed_main_mg = self.to_trade_m(main_mg)#main_mg.to_trade(self.current_date)
-		#print(self.current_date)
-		#print("needed main mg:", needed_main_mg)
+		needed_main_mg = self.to_trade_m(main_mg)
 		if amount > abs(needed_main_mg):
-		#	print("minus here first things first")
 			reward -= 10
 		amount += self._travel_loss(target_mg, amount)
-		#print("amount travel:", amount)
 		offer = abs(target_mg.to_trade(self.current_date))
 		if action_type <1:#buy from target MG
-		#	print("here to buy")
 			if main_mg.to_trade(self.current_date) < 0:
-		#		print("minus here to_trade ", main_mg.to_trade(self.current_date))
 				reward -= 10
 			if price >= target_mg.unit_price:
 				if offer != 0:
 					if amount == 0:
-		#				print("minus here amount0")
 						reward -=10
 					elif offer >= amount:
 						target_mg.battery.supply(amount)
 						main_mg.battery.charge(amount)
-		#				print("look here and reward",main_mg.battery.remaining_capacity,amount, reward)
 						rem_amount = 0
 						reward -= rem_amount / amount
-		#				print("reward", reward)
 						reward += (NETWORK_PRICE - price)/main_mg.unit_price
 						self.energy_bought.append(amount - rem_amount)
 						self.energy_sold.append(0)
-		#				print("to trade?: and reward",self.to_trade_m(main_mg), reward)
 
 					else:
 						target_mg.battery.supply(offer)
 						main_mg.battery.charge(offer)
-		#				print("look here2 and reward",main_mg.battery.remaining_capacity,amount, reward)
 						rem_amount = amount - offer
 						reward -= rem_amount / amount
-		#				print("reward", reward)
 						reward += (NETWORK_PRICE - price)/main_mg.unit_price
 						reward = reward[0]
 						self.energy_bought.append(amount - rem_amount)
 						self.energy_sold.append(0)
-		#				print("to trade?: and reward",self.to_trade_m(main_mg), reward)
 				else:
 					reward -= 1
-		#			print("offer neg")
 			else:
-		#		print("minus here unit_price")
 				reward -= 1
 			self.prices.append(price)
 			self.energy_bought.append(0)
@@ -326,12 +274,10 @@ class MicrogridEnv (gym.Env):
 
 		elif action_type < 2:#Sell to target MG
 			if main_mg.to_trade(self.current_date) > 0:
-		#		print("minus here to_trade more ", main_mg.to_trade(self.current_date))
 				reward -= 10
 			if price >= main_mg.unit_price and price <= NETWORK_PRICE:
 				if offer != 0:
 					if amount == 0:
-		#				print("minus here amount zero second")
 						reward -=10
 					elif offer >= amount:
 						main_mg.battery.supply(amount)
@@ -352,9 +298,7 @@ class MicrogridEnv (gym.Env):
 						self.energy_bought.append(0)
 				else:
 					reward -= 1
-		#			print("offer neg again")
 			else:
-		#		print("minus here unit and network price")
 				reward -= 1
 			self.prices.append(price)
 			self.energy_bought.append(0)
@@ -369,22 +313,13 @@ class MicrogridEnv (gym.Env):
 
 		tot = self.to_trade_m(main_mg)
 		if tot >0:
-		#	print("bingooooooooooooooooo")
 			reward += 100
 		self.time_step +=1
 		self.tot.append(tot)
-		#if reward == 0:
-		#	print("//////////////////////////////////////////////////////////////////////////////////////////////////////////////")
 		state = self._status()
 		tgt_total_load, tgt_total_generation, tgt_battery_status = target_mg.state(self.current_date)
 		target_mg.battery.charge(tgt_total_load - tgt_total_load)
 		is_done = False
-		#print("sold: ",self.energy_sold)
-		#print("bought: ",self.energy_bought)
-		#print("prices: ",self.prices)
-		#print("date: ",self.current_date)
-		#print("needed: ", main_mg.to_trade(self.current_date))
-		#print("reward", reward)
 		return state, reward, is_done, {}
 
 	def render(self):
