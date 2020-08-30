@@ -36,7 +36,7 @@ class Load:
 	def __init__(self, name, max_load, num_of_units):
 		self.name = name #name of the load item to get the usage trend
 		self.max_load = max_load #maximum_load_needed_by_load_category
-		self.usage_trends_df = pd.read_csv("data/usage_trends.csv")
+		self.usage_trends_df = pd.read_csv("Data/usage_trends.csv")
 		self.usage_trends_values = np.array(self.usage_trends_df[name]) #trend_of_percentage_of_usage_during_a_day
 		self.num_of_units = num_of_units #number_of_units_of_load_available_in_area
 
@@ -78,8 +78,8 @@ class Battery:
 	
 class Generation:
 	def __init__(self, name, maxCapacity = None):
-		self.solar_df = pd.read_csv("data/Solar/" + name + "_solar_generation.csv")
-		self.wind_df = pd.read_csv("data/wind/" + name + "_wind_generation.csv")
+		self.solar_df = pd.read_csv("Data/Solar/" + name + "_solar_generation.csv")
+		self.wind_df = pd.read_csv("Data/wind/" + name + "_wind_generation.csv")
 		self.solar_generation = np.array(self.solar_df["value"], dtype = np.float32)
 		self.wind_generation = np.array(self.wind_df["value"], dtype = np.float32)
 		for i in range(len(self.wind_generation)):
@@ -160,11 +160,11 @@ class Microgrid:
 
 class MicrogridEnv (gym.Env):
 	def __init__(self):
-		self.main_mG = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
-		self.first_mg = Microgrid("Um_Bader", UM_BADER_LOAD_PARAMETERS, UM_BADER_BATTERY_PARAMETERS)
+		self.first_mg = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
+		self.main_mG = Microgrid("Um_Bader", UM_BADER_LOAD_PARAMETERS, UM_BADER_BATTERY_PARAMETERS)
 		self.second_mg= Microgrid("Tannah", TANNAH_LOAD_PARAMETERS, TANNAH_BATTERY_PARAMETERS)
 		self.time_step = 0
-		self.dates = np.array(pd.read_csv("data/Solar/" + self.main_mG.name + "_solar_generation.csv")["Time"])
+		self.dates = np.array(pd.read_csv("Data/Solar/" + self.main_mG.name + "_solar_generation.csv")["Time"])
 		self.start_date = self.dates[self.time_step]
 		self.current_price = NETWORK_PRICE
 		self.action_space = spaces.Box(low=np.array([0,0,0,self.main_mG.unit_price]), high=np.array([3, 2, self.main_mG.battery.max_capacity, NETWORK_PRICE]), dtype = np.float32)
@@ -228,6 +228,7 @@ class MicrogridEnv (gym.Env):
 		reward = 0
 		is_done = False
 		main_mg = self.main_mG
+		if target_mg_idx <1:
 			target_mg = self.first_mg
 		else:
 			target_mg = self.second_mg

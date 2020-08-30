@@ -235,7 +235,7 @@ if __name__ == '__main__':
     parser.add_argument('--l', type=int, default=2)
     parser.add_argument('--gamma', type=float, default=0.99)
     parser.add_argument('--seed', '-s', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=50)
+    parser.add_argument('--epochs', type=int, default=100)
     parser.add_argument('--exp_name', type=str, default='ddpg')
     args = parser.parse_args()
 
@@ -256,10 +256,10 @@ if __name__ == '__main__':
     		o, r, d, _ = env.step([1,0,abs(amount), 19])
     	rewards.append(r)
     	t+=1
-    	if t > 100:
+    	if t > 4000:
     		break
-    for i in range(99):
-        print("Bought, sold, prices, rewards tot_sold", (env.energy_bought[i], env.energy_sold[i], env.prices[i], rewards[i], env.tot[i]))
+    #for i in range(99):
+    #    print("Bought, sold, prices, rewards tot_sold", (env.energy_bought[i], env.energy_sold[i], env.prices[i], rewards[i], env.tot[i]))
     print("sum rewards: ",sum(rewards))
     print("avg reward: ", np.mean(rewards))
     '''
