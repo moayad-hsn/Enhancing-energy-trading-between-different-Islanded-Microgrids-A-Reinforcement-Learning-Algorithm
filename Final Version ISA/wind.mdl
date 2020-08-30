@@ -568,8 +568,8 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "DELL"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Aug 12 14:03:26 2020"
-  RTWModifiedTimeStamp	  519141674
+  LastModifiedDate	  "Sun Aug 23 13:28:40 2020"
+  RTWModifiedTimeStamp	  519142004
   ModelVersionFormat	  "1.%<AutoIncrement:570>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -682,7 +682,7 @@ Model {
 	  Description		  ""
 	  Components		  []
 	  StartTime		  "0.0"
-	  StopTime		  "0.2"
+	  StopTime		  "100"
 	  AbsTol		  "auto"
 	  AutoScaleAbsTol	  on
 	  FixedStep		  "auto"
@@ -1393,7 +1393,88 @@ Model {
 	    PropName		    "DisabledProps"
 	  }
 	  Description		  ""
-	  Components		  []
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    MECH.SimMechanicsCC {
+	      $ObjectID		      21
+	      Version		      "19.0.0"
+	      DisabledProps	      []
+	      Description	      ""
+	      Components	      []
+	      Name		      "SimscapeMultibody1G"
+	      WarnOnRedundantConstraints on
+	      WarnOnSingularInitialAssembly off
+	      ShowCutJoints	      off
+	      VisOnUpdateDiagram      off
+	      VisDuringSimulation     off
+	      EnableVisSimulationTime on
+	      VisSampleTime	      "0"
+	      DisableBodyVisControl   off
+	      ShowCG		      on
+	      ShowCS		      on
+	      ShowOnlyPortCS	      off
+	      HighlightModel	      on
+	      FramesToBeSkipped	      "0"
+	      AnimationDelay	      "3"
+	      RecordAVI		      off
+	      CompressAVI	      on
+	      AviFileName	      ""
+	      AutoFitVis	      "off"
+	      EnableSelection	      on
+	      LastVizWinPosition      "[-1 -1 -1 -1]"
+	      CamPosition	      "[0 0 0]"
+	      CamTarget		      "[0 0 -1]"
+	      CamUpVector	      "[0 1 0]"
+	      CamHeight		      "-1"
+	      CamViewAngle	      "0"
+	      VisBackgroundColor      "[0.9 0.9 0.95]"
+	      DefaultBodyColor	      "[1 0 0]"
+	      MDLBodyVisualizationType "Convex hull from body CS locations"
+	      OVRRIDBodyVisualizationType "NONE"
+	      VisConfigFile	      ""
+	    }
+	    simmechanics.ConfigurationSet {
+	      $ObjectID		      22
+	      Version		      "19.0.0"
+	      DisabledProps	      []
+	      Description	      "Simscape Multibody"
+	      Array {
+		Type			"Handle"
+		Dimension		2
+		simmechanics.DiagnosticsConfigSet {
+		  $ObjectID		  23
+		  Version		  "19.0.0"
+		  DisabledProps		  []
+		  Description		  "Diagnostics"
+		  Components		  []
+		  Name			  "DiagnosticsConfigSet"
+		  SimMechanicsInvalidVisualProperty "warning"
+		  SimMechanicsCrossSectionNullEdge "warning"
+		  SimMechanicsUnconnectedFramePorts "warning"
+		  SimMechanicsUnconnectedGeometryPorts "warning"
+		  SimMechanicsRedundantBlock "warning"
+		  SimMechanicsConflictingReferenceFrames "warning"
+		  SimMechanicsRigidlyBoundBlock	"error"
+		  SimMechanicsUnsatisfiedHighPriorityTargets "warning"
+		  SimMechanicsJointTargetOverSpecification "error"
+		}
+		simmechanics.ExplorerConfigSet {
+		  $ObjectID		  24
+		  Version		  "19.0.0"
+		  DisabledProps		  []
+		  Description		  "Explorer"
+		  Components		  []
+		  Name			  "ExplorerConfigSet"
+		  SimMechanicsOpenEditorOnUpdate on
+		  InternalSimMechanicsExplorerSettings ""
+		}
+		PropName		"Components"
+	      }
+	      Name		      "SimscapeMultibody"
+	    }
+	    PropName		    "Components"
+	  }
 	  Name			  "Simscape"
 	  EditingMode		  "Full"
 	  ExplicitSolverDiagnosticOptions "warning"
@@ -1430,7 +1511,7 @@ Model {
   }
   Object {
     $PropName		    "DataTransfer"
-    $ObjectID		    21
+    $ObjectID		    25
     $ClassName		    "Simulink.GlobalDataTransfer"
     DefaultTransitionBetweenSyncTasks "Ensure deterministic transfer (maximum delay)"
     DefaultTransitionBetweenAsyncTasks "Ensure data integrity only"
@@ -1847,7 +1928,7 @@ Model {
   System {
     Name		    "wind"
     Location		    [-8, -8, 1374, 736]
-    Open		    on
+    Open		    off
     PortBlocksUseCompactNotation off
     SetExecutionDomain	    off
     ExecutionDomainType	    "Deduce"
@@ -1878,7 +1959,7 @@ Model {
       SourceProductName	      "Simscape Electrical"
       SourceProductBaseCode   "PS"
       ContentPreviewEnabled   off
-      PositiveSequence	      "[120e3 0 60]"
+      PositiveSequence	      "[120e3 0 50]"
       VariationEntity	      "Amplitude"
       VariationType	      "Table of time-amplitude pairs"
       VariationTypeAlt	      "Step"
@@ -2173,7 +2254,7 @@ Model {
       RequestExecContextInheritance off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		22
+	$ObjectID		26
 	$ClassName		"Simulink.Mask"
 	Type			"DFIG Wind Turbine"
 	Description		"This block implements a  model of a variable speed pitch controlled wind turbine using a doubly-fed ind"
@@ -2235,14 +2316,14 @@ Model {
 	  Type			  "Simulink.MaskParameter"
 	  Dimension		  33
 	  Object {
-	    $ObjectID		    23
+	    $ObjectID		    27
 	    Type		    "edit"
 	    Name		    "Nb_wt"
 	    Prompt		    "Number of wind turbines:"
-	    Value		    "6"
+	    Value		    "1"
 	  }
 	  Object {
-	    $ObjectID		    24
+	    $ObjectID		    28
 	    Type		    "popup"
 	    Array {
 	      Type		      "Cell"
@@ -2278,49 +2359,49 @@ Model {
 	    "r',Param_DisplayTurbChar);\n\n"
 	  }
 	  Object {
-	    $ObjectID		    25
+	    $ObjectID		    29
 	    Type		    "edit"
 	    Name		    "nom"
 	    Prompt		    "Nom. power, L-L volt. and freq. [Pn (VA), Vs_nom (Vrms), Vr_nom (Vrms), fn (Hz)]:"
-	    Value		    "[1.5e6/.9 575 1975 60]"
+	    Value		    "[1.5e6/.9 575 1975 50]"
 	  }
 	  Object {
-	    $ObjectID		    26
+	    $ObjectID		    30
 	    Type		    "edit"
 	    Name		    "sta"
 	    Prompt		    "Stator [ Rs,Lls ] (p.u.):"
 	    Value		    "[ 0.023 0.18]"
 	  }
 	  Object {
-	    $ObjectID		    27
+	    $ObjectID		    31
 	    Type		    "edit"
 	    Name		    "rot"
 	    Prompt		    "Rotor [ Rr',Llr' ] (p.u.):"
 	    Value		    "[ 0.016 0.16]"
 	  }
 	  Object {
-	    $ObjectID		    28
+	    $ObjectID		    32
 	    Type		    "edit"
 	    Name		    "Lm"
 	    Prompt		    "Magnetizing inductance Lm (p.u.):"
 	    Value		    "2.9"
 	  }
 	  Object {
-	    $ObjectID		    29
+	    $ObjectID		    33
 	    Type		    "edit"
 	    Name		    "mec"
 	    Prompt		    "Inertia constant, friction factor, and pairs of poles [ H(s)  F(p.u.)  p ]:"
 	    Value		    "[0.685 0.01 3]"
 	  }
 	  Object {
-	    $ObjectID		    30
+	    $ObjectID		    34
 	    Type		    "edit"
 	    Name		    "init"
 	    Prompt		    "Initial conditions [s  th  ias  ibs  ics  phaseas phasebs phasecs]:"
 	    Value		    "[ -0.2,0   0,0,0   0,0,0 ]"
 	  }
 	  Object {
-	    $ObjectID		    31
+	    $ObjectID		    35
 	    Type		    "edit"
 	    Name		    "Imax_grid_conv"
 	    Prompt		    "Grid-side converter maximum current (pu of generator nominal current):"
@@ -2328,7 +2409,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    32
+	    $ObjectID		    36
 	    Type		    "edit"
 	    Name		    "RL_grid"
 	    Prompt		    "Grid-side coupling inductor [ L, R] (p.u.):"
@@ -2336,7 +2417,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    33
+	    $ObjectID		    37
 	    Type		    "edit"
 	    Name		    "Vdc_nom"
 	    Prompt		    "Nominal DC bus voltage (V):"
@@ -2344,7 +2425,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    34
+	    $ObjectID		    38
 	    Type		    "edit"
 	    Name		    "C_DClink1"
 	    Prompt		    "DC bus capacitor (F):"
@@ -2352,7 +2433,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    35
+	    $ObjectID		    39
 	    Type		    "edit"
 	    Name		    "C_var_filter1"
 	    Prompt		    "Line filter capacitor (Q=50) (var):"
@@ -2360,7 +2441,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    36
+	    $ObjectID		    40
 	    Type		    "edit"
 	    Name		    "Pmec1"
 	    Prompt		    "Nominal mechanical output power (W):"
@@ -2368,7 +2449,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    37
+	    $ObjectID		    41
 	    Type		    "edit"
 	    Name		    "wind_speed_CpMax"
 	    Prompt		    "Wind speed at nominal speed and at Cp max (must be between 6 m/s and 30 m/s) (m/s):"
@@ -2376,7 +2457,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    38
+	    $ObjectID		    42
 	    Type		    "edit"
 	    Name		    "wind0"
 	    Prompt		    "Initial wind speed (m/s):"
@@ -2384,7 +2465,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    39
+	    $ObjectID		    43
 	    Type		    "checkbox"
 	    Name		    "DisplayTurbChar"
 	    Prompt		    "Display wind turbine power characteristics:"
@@ -2393,7 +2474,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    40
+	    $ObjectID		    44
 	    Type		    "edit"
 	    Name		    "H_WT"
 	    Prompt		    "Wind turbine inertia constant H (s):"
@@ -2401,7 +2482,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    41
+	    $ObjectID		    45
 	    Type		    "edit"
 	    Name		    "Ksh"
 	    Prompt		    "Shaft spring constant refer to high-speed shaft (pu of nominal mechanical torque/rad):"
@@ -2409,7 +2490,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    42
+	    $ObjectID		    46
 	    Type		    "edit"
 	    Name		    "D_mutual"
 	    Prompt		    "Shaft mutual damping (pu of nominal mechanical torque/pu dw):"
@@ -2417,7 +2498,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    43
+	    $ObjectID		    47
 	    Type		    "edit"
 	    Name		    "w_wt0"
 	    Prompt		    "Turbine initial speed (pu of nominal speed):"
@@ -2425,7 +2506,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    44
+	    $ObjectID		    48
 	    Type		    "edit"
 	    Name		    "torque0"
 	    Prompt		    "Initial output torque (pu of nominal mechanical torque):"
@@ -2433,7 +2514,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    45
+	    $ObjectID		    49
 	    Type		    "edit"
 	    Name		    "Kdc"
 	    Prompt		    "DC bus voltage regulator gains [Kp Ki]:"
@@ -2441,7 +2522,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    46
+	    $ObjectID		    50
 	    Type		    "edit"
 	    Name		    "Kgrid_side_cur_reg"
 	    Prompt		    "Grid-side converter current regulator gains [Kp Ki]:"
@@ -2449,7 +2530,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    47
+	    $ObjectID		    51
 	    Type		    "edit"
 	    Name		    "Kspeed"
 	    Prompt		    "Speed regulator gains [Kp Ki]:"
@@ -2457,7 +2538,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    48
+	    $ObjectID		    52
 	    Type		    "edit"
 	    Name		    "Krotor_side_cur_reg"
 	    Prompt		    "Rotor-side converter current regulator gains [Kp Ki]:"
@@ -2465,7 +2546,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    49
+	    $ObjectID		    53
 	    Type		    "edit"
 	    Name		    "Ki_QV"
 	    Prompt		    "Q and V regulator gains [Ki_var Ki_volt]:"
@@ -2473,7 +2554,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    50
+	    $ObjectID		    54
 	    Type		    "edit"
 	    Name		    "Kp_pitch"
 	    Prompt		    "Pitch controller gain [Kp]:"
@@ -2481,7 +2562,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    51
+	    $ObjectID		    55
 	    Type		    "edit"
 	    Name		    "Kcompensation"
 	    Prompt		    "Pitch compensation gains [Kp Ki]:"
@@ -2489,7 +2570,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    52
+	    $ObjectID		    56
 	    Type		    "edit"
 	    Name		    "PWM_freq_grid"
 	    Prompt		    "Frequency of the grid-side PWM carrier (Hz):"
@@ -2497,7 +2578,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    53
+	    $ObjectID		    57
 	    Type		    "edit"
 	    Name		    "PWM_freq_rotor"
 	    Prompt		    "Frequency of the rotor-side PWM carrier (Hz):"
@@ -2505,7 +2586,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    54
+	    $ObjectID		    58
 	    Type		    "edit"
 	    Name		    "pitch_max"
 	    Prompt		    "Maximum pitch angle (deg):"
@@ -2513,7 +2594,7 @@ Model {
 	    Visible		    "off"
 	  }
 	  Object {
-	    $ObjectID		    55
+	    $ObjectID		    59
 	    Type		    "edit"
 	    Name		    "pitch_rate"
 	    Prompt		    "Maximum rate of change of pitch angle (deg/s):"
@@ -4651,7 +4732,7 @@ Model {
 		  RequestExecContextInheritance	off
 		  Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    56
+		    $ObjectID		    60
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete 3-phase PLL"
 		    Description		    "This Phase Locked Loop (PLL) system can be used  to synchronize on a set of variable frequency"
@@ -4666,28 +4747,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    57
+		    $ObjectID		    61
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "0.75*Fnom"
 		    }
 		    Object {
-		    $ObjectID		    58
+		    $ObjectID		    62
 		    Type		    "edit"
 		    Name		    "Par_Init"
 		    Prompt		    "Initial inputs:[ Phase(degrees)   Frequency(Hz) ]"
 		    Value		    "[0 Fnom]"
 		    }
 		    Object {
-		    $ObjectID		    59
+		    $ObjectID		    63
 		    Type		    "edit"
 		    Name		    "ParK"
 		    Prompt		    "Regulator gains [ Kp1 Kp2  Ki1  Ki2 ]"
 		    Value		    "[5 3.2 1 50]"
 		    }
 		    Object {
-		    $ObjectID		    60
+		    $ObjectID		    64
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -5362,7 +5443,7 @@ Model {
 		  RequestExecContextInheritance	off
 		  Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    61
+		    $ObjectID		    65
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete 3-phase PLL-Driven Positive-Sequence Active & Reactive Power "
 		    Description		    "This discrete block measures the 3-phase active power P and reactive power Q  associated with "
@@ -5385,35 +5466,35 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    5
 		    Object {
-		    $ObjectID		    62
+		    $ObjectID		    66
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Fnom"
 		    }
 		    Object {
-		    $ObjectID		    63
+		    $ObjectID		    67
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fnom*45/60"
 		    }
 		    Object {
-		    $ObjectID		    64
+		    $ObjectID		    68
 		    Type		    "edit"
 		    Name		    "Par_Vinit"
 		    Prompt		    "Voltage initial input: [ Mag  Phase(Degrees) ]"
 		    Value		    "[Vnom/sqrt(3)*sqrt(2) 30]"
 		    }
 		    Object {
-		    $ObjectID		    65
+		    $ObjectID		    69
 		    Type		    "edit"
 		    Name		    "Par_Iinit"
 		    Prompt		    "Current initial input: [ Mag  Phase(Degrees) ]"
 		    Value		    "[Pnom/sqrt(3)/Vnom*sqrt(2) -10]"
 		    }
 		    Object {
-		    $ObjectID		    66
+		    $ObjectID		    70
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -5500,7 +5581,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    67
+		    $ObjectID		    71
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete 3-phase PLL-Driven Positive-Sequence Fundamental Value"
 		    Description		    "For a supplied fundamental frequency (port Freq), this discrete block computes  the positive-s"
@@ -5518,28 +5599,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    68
+		    $ObjectID		    72
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    69
+		    $ObjectID		    73
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    70
+		    $ObjectID		    74
 		    Type		    "edit"
 		    Name		    "Par_Init"
 		    Prompt		    "Initial input (positive component): [ Mag  Phase-relative-to-PLL(degrees) ]"
 		    Value		    "Par_Vinit"
 		    }
 		    Object {
-		    $ObjectID		    71
+		    $ObjectID		    75
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -5632,7 +5713,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    72
+		    $ObjectID		    76
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete Variable-Frequency Mean Value"
 		    Description		    "This discrete block computes the mean value of the input signal (port In) over a running windo"
@@ -5646,28 +5727,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    73
+		    $ObjectID		    77
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    74
+		    $ObjectID		    78
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    75
+		    $ObjectID		    79
 		    Type		    "edit"
 		    Name		    "Vinit"
 		    Prompt		    "Initial input (DC component):"
 		    Value		    "Imag_Init"
 		    }
 		    Object {
-		    $ObjectID		    76
+		    $ObjectID		    80
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -6000,7 +6081,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    77
+		    $ObjectID		    81
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete variable transport delay"
 		    Description		    "Apply a delay to the first input (In) signal.\nThe second input (D) specifies the delay time. "
@@ -6008,21 +6089,21 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    78
+		    $ObjectID		    82
 		    Type		    "edit"
 		    Name		    "MaxDelay"
 		    Prompt		    "Maximum delay (s):"
 		    Value		    "MaxDelay"
 		    }
 		    Object {
-		    $ObjectID		    79
+		    $ObjectID		    83
 		    Type		    "edit"
 		    Name		    "InitialValue"
 		    Prompt		    "Initial input:"
 		    Value		    "0"
 		    }
 		    Object {
-		    $ObjectID		    80
+		    $ObjectID		    84
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -6464,7 +6545,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    81
+		    $ObjectID		    85
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete Variable-Frequency Mean Value"
 		    Description		    "This discrete block computes the mean value of the input signal (port In) over a running windo"
@@ -6478,28 +6559,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    82
+		    $ObjectID		    86
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    83
+		    $ObjectID		    87
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    84
+		    $ObjectID		    88
 		    Type		    "edit"
 		    Name		    "Vinit"
 		    Prompt		    "Initial input (DC component):"
 		    Value		    "Real_Init"
 		    }
 		    Object {
-		    $ObjectID		    85
+		    $ObjectID		    89
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -6832,7 +6913,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    86
+		    $ObjectID		    90
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete variable transport delay"
 		    Description		    "Apply a delay to the first input (In) signal.\nThe second input (D) specifies the delay time. "
@@ -6840,21 +6921,21 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    87
+		    $ObjectID		    91
 		    Type		    "edit"
 		    Name		    "MaxDelay"
 		    Prompt		    "Maximum delay (s):"
 		    Value		    "MaxDelay"
 		    }
 		    Object {
-		    $ObjectID		    88
+		    $ObjectID		    92
 		    Type		    "edit"
 		    Name		    "InitialValue"
 		    Prompt		    "Initial input:"
 		    Value		    "0"
 		    }
 		    Object {
-		    $ObjectID		    89
+		    $ObjectID		    93
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -7479,7 +7560,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    90
+		    $ObjectID		    94
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete 3-phase PLL-Driven Positive-Sequence Fundamental Value"
 		    Description		    "For a supplied fundamental frequency (port Freq), this discrete block computes  the positive-s"
@@ -7497,28 +7578,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    91
+		    $ObjectID		    95
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    92
+		    $ObjectID		    96
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    93
+		    $ObjectID		    97
 		    Type		    "edit"
 		    Name		    "Par_Init"
 		    Prompt		    "Initial input (positive component): [ Mag  Phase-relative-to-PLL(degrees) ]"
 		    Value		    "Par_Iinit"
 		    }
 		    Object {
-		    $ObjectID		    94
+		    $ObjectID		    98
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -7611,7 +7692,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    95
+		    $ObjectID		    99
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete Variable-Frequency Mean Value"
 		    Description		    "This discrete block computes the mean value of the input signal (port In) over a running windo"
@@ -7625,28 +7706,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    96
+		    $ObjectID		    100
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    97
+		    $ObjectID		    101
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    98
+		    $ObjectID		    102
 		    Type		    "edit"
 		    Name		    "Vinit"
 		    Prompt		    "Initial input (DC component):"
 		    Value		    "Imag_Init"
 		    }
 		    Object {
-		    $ObjectID		    99
+		    $ObjectID		    103
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -7979,7 +8060,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    100
+		    $ObjectID		    104
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete variable transport delay"
 		    Description		    "Apply a delay to the first input (In) signal.\nThe second input (D) specifies the delay time. "
@@ -7987,21 +8068,21 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    101
+		    $ObjectID		    105
 		    Type		    "edit"
 		    Name		    "MaxDelay"
 		    Prompt		    "Maximum delay (s):"
 		    Value		    "MaxDelay"
 		    }
 		    Object {
-		    $ObjectID		    102
+		    $ObjectID		    106
 		    Type		    "edit"
 		    Name		    "InitialValue"
 		    Prompt		    "Initial input:"
 		    Value		    "0"
 		    }
 		    Object {
-		    $ObjectID		    103
+		    $ObjectID		    107
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -8443,7 +8524,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    104
+		    $ObjectID		    108
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete Variable-Frequency Mean Value"
 		    Description		    "This discrete block computes the mean value of the input signal (port In) over a running windo"
@@ -8457,28 +8538,28 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    4
 		    Object {
-		    $ObjectID		    105
+		    $ObjectID		    109
 		    Type		    "edit"
 		    Name		    "Finit"
 		    Prompt		    "Initial frequency (Hz):"
 		    Value		    "Finit"
 		    }
 		    Object {
-		    $ObjectID		    106
+		    $ObjectID		    110
 		    Type		    "edit"
 		    Name		    "Fmin"
 		    Prompt		    "Minimum frequency (Hz):"
 		    Value		    "Fmin"
 		    }
 		    Object {
-		    $ObjectID		    107
+		    $ObjectID		    111
 		    Type		    "edit"
 		    Name		    "Vinit"
 		    Prompt		    "Initial input (DC component):"
 		    Value		    "Real_Init"
 		    }
 		    Object {
-		    $ObjectID		    108
+		    $ObjectID		    112
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -8811,7 +8892,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    109
+		    $ObjectID		    113
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete variable transport delay"
 		    Description		    "Apply a delay to the first input (In) signal.\nThe second input (D) specifies the delay time. "
@@ -8819,21 +8900,21 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    110
+		    $ObjectID		    114
 		    Type		    "edit"
 		    Name		    "MaxDelay"
 		    Prompt		    "Maximum delay (s):"
 		    Value		    "MaxDelay"
 		    }
 		    Object {
-		    $ObjectID		    111
+		    $ObjectID		    115
 		    Type		    "edit"
 		    Name		    "InitialValue"
 		    Prompt		    "Initial input:"
 		    Value		    "0"
 		    }
 		    Object {
-		    $ObjectID		    112
+		    $ObjectID		    116
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -9793,27 +9874,27 @@ Model {
 		  RequestExecContextInheritance	off
 		  Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    113
+		    $ObjectID		    117
 		    $ClassName		    "Simulink.Mask"
 		    Array {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    3
 		    Object {
-		    $ObjectID		    114
+		    $ObjectID		    118
 		    Type		    "edit"
 		    Name		    "Freq"
 		    Prompt		    "Cut-off frequency (Hz):"
 		    Value		    "Freq_filter"
 		    }
 		    Object {
-		    $ObjectID		    115
+		    $ObjectID		    119
 		    Type		    "edit"
 		    Name		    "Zeta1"
 		    Prompt		    "Damping factor Zeta:"
 		    Value		    "Zeta_filter"
 		    }
 		    Object {
-		    $ObjectID		    116
+		    $ObjectID		    120
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time"
@@ -13058,7 +13139,7 @@ Model {
 		  RequestExecContextInheritance	off
 		  Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    117
+		    $ObjectID		    121
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Integrator  With  External  Dynamic  Limits (Discrete)"
 		    Display		    "disp('Discrete-Time\\n(Trapezoidal)\\nIntegrator\\n ')"
@@ -13226,7 +13307,7 @@ Model {
 		    RequestExecContextInheritance off
 		    Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    118
+		    $ObjectID		    122
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Limiter with External Limits"
 		    Display		    "disp('      Limiter\\n')"
@@ -16226,7 +16307,7 @@ Model {
 		  RequestExecContextInheritance	off
 		  Object {
 		    $PropName		    "MaskObject"
-		    $ObjectID		    119
+		    $ObjectID		    123
 		    $ClassName		    "Simulink.Mask"
 		    Type		    "Discrete PI Controller"
 		    Description		    "This block implements a discrete PI controller."
@@ -16239,35 +16320,35 @@ Model {
 		    Type		    "Simulink.MaskParameter"
 		    Dimension		    5
 		    Object {
-		    $ObjectID		    120
+		    $ObjectID		    124
 		    Type		    "edit"
 		    Name		    "Kp"
 		    Prompt		    "Proportional gain (Kp):"
 		    Value		    "Kp_speed"
 		    }
 		    Object {
-		    $ObjectID		    121
+		    $ObjectID		    125
 		    Type		    "edit"
 		    Name		    "Ki"
 		    Prompt		    "Integral gain (Ki):"
 		    Value		    "Ki_speed"
 		    }
 		    Object {
-		    $ObjectID		    122
+		    $ObjectID		    126
 		    Type		    "edit"
 		    Name		    "Par_Limits"
 		    Prompt		    "Output limits: [ Upper   Lower ]"
 		    Value		    "[Max_speed_reg 0]"
 		    }
 		    Object {
-		    $ObjectID		    123
+		    $ObjectID		    127
 		    Type		    "edit"
 		    Name		    "Init"
 		    Prompt		    "Output initial value:"
 		    Value		    "0.7"
 		    }
 		    Object {
-		    $ObjectID		    124
+		    $ObjectID		    128
 		    Type		    "edit"
 		    Name		    "Ts"
 		    Prompt		    "Sample time:"
@@ -17522,7 +17603,7 @@ Model {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    125
+	    $ObjectID		    129
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Wind Turbine shaft"
 	    Description		    "This block implements a wind turbine drive train model. All shaft parameters are referred to hi"
@@ -17535,49 +17616,49 @@ Model {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      7
 	      Object {
-		$ObjectID		126
+		$ObjectID		130
 		Type			"edit"
 		Name			"H_WT"
 		Prompt			"Wind turbine inertia constant H (s):"
 		Value			"H_WT"
 	      }
 	      Object {
-		$ObjectID		127
+		$ObjectID		131
 		Type			"edit"
 		Name			"Ksh"
 		Prompt			"Shaft spring constant (pu of nominal mechanical torque/rad):"
 		Value			"Ksh"
 	      }
 	      Object {
-		$ObjectID		128
+		$ObjectID		132
 		Type			"edit"
 		Name			"D_mutual"
 		Prompt			"Shaft mutual damping (pu of nominal mechanical torque/pu dw):"
 		Value			"D_mutual"
 	      }
 	      Object {
-		$ObjectID		129
+		$ObjectID		133
 		Type			"edit"
 		Name			"wbase"
 		Prompt			"Shaft base speed (rad/s):"
 		Value			"2*pi*Fnom/p"
 	      }
 	      Object {
-		$ObjectID		130
+		$ObjectID		134
 		Type			"edit"
 		Name			"w_wt0"
 		Prompt			"Turbine initial speed (pu of base speed):"
 		Value			"w_wt0"
 	      }
 	      Object {
-		$ObjectID		131
+		$ObjectID		135
 		Type			"edit"
 		Name			"torque0"
 		Prompt			"Initial output torque (pu of nominal mechanical torque):"
 		Value			"torque0"
 	      }
 	      Object {
-		$ObjectID		132
+		$ObjectID		136
 		Type			"edit"
 		Name			"Ts"
 		Prompt			"Sample time (s):"
@@ -18522,7 +18603,7 @@ Model {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    133
+	    $ObjectID		    137
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Wind Turbine"
 	    Description		    "This block implements a generic wind turbine models.\n\nThe first input is the turbine speed in"
@@ -18540,35 +18621,35 @@ Model {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      5
 	      Object {
-		$ObjectID		134
+		$ObjectID		138
 		Type			"edit"
 		Name			"Prated"
 		Prompt			"Nominal mechanical output power (W):"
 		Value			"Pmec"
 	      }
 	      Object {
-		$ObjectID		135
+		$ObjectID		139
 		Type			"edit"
 		Name			"c1_c8"
 		Prompt			"Coefficients [c1 ... c8]"
 		Value			"c1_c8"
 	      }
 	      Object {
-		$ObjectID		136
+		$ObjectID		140
 		Type			"edit"
 		Name			"K1_K2"
 		Prompt			"Parameters [K1 K2]"
 		Value			"K1_K2"
 	      }
 	      Object {
-		$ObjectID		137
+		$ObjectID		141
 		Type			"edit"
 		Name			"wind0"
 		Prompt			"Initial wind speed (m/s):"
 		Value			"wind0"
 	      }
 	      Object {
-		$ObjectID		138
+		$ObjectID		142
 		Type			"edit"
 		Name			"Ts"
 		Prompt			"Sample time (s):"
@@ -19933,7 +20014,7 @@ Model {
       RequestExecContextInheritance off
       Object {
 	$PropName		"MaskObject"
-	$ObjectID		139
+	$ObjectID		143
 	$ClassName		"Simulink.Mask"
 	Display			"disp('?')"
       }
@@ -19963,7 +20044,7 @@ Model {
       Name		      "irradiation\n"
       SID		      "42"
       Ports		      [0, 1]
-      Position		      [585, 55, 615, 85]
+      Position		      [600, 25, 630, 55]
       ZOrder		      54
       LibraryVersion	      "1.453"
       SourceBlock	      "simulink/Sources/Repeating\nSequence\nInterpolated"
@@ -20376,6 +20457,7 @@ Model {
       ZOrder		      67
       SrcBlock		      "irradiation\n"
       SrcPort		      1
+      Points		      [32, 0; 0, 30]
       DstBlock		      "DFIG Wind Turbine"
       DstPort		      1
     }
