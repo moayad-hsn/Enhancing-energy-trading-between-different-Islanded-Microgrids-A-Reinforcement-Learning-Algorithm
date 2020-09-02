@@ -160,8 +160,8 @@ class Microgrid:
 
 class MicrogridEnv (gym.Env):
 	def __init__(self):
-		self.first_mg = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
-		self.main_mG = Microgrid("Um_Bader", UM_BADER_LOAD_PARAMETERS, UM_BADER_BATTERY_PARAMETERS)
+		self.main_mG = Microgrid("Hamza_Elsheikh", HAMZA_ELSHEIKH_LOAD_PARAMETERS, HAMZA_ELSHEIKH_BATTERY_PARAMETERS)
+		self.first_mg = Microgrid("Um_Bader", UM_BADER_LOAD_PARAMETERS, UM_BADER_BATTERY_PARAMETERS)
 		self.second_mg= Microgrid("Tannah", TANNAH_LOAD_PARAMETERS, TANNAH_BATTERY_PARAMETERS)
 		self.time_step = 0
 		self.dates = np.array(pd.read_csv("Data/Solar/" + self.main_mG.name + "_solar_generation.csv")["Time"])

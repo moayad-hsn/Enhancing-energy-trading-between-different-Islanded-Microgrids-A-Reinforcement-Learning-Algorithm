@@ -88,7 +88,7 @@ def ddpg(env_fn, actor_critic=core.MLPActorCritic, ac_kwargs=dict(), seed=0,
         loss_q = ((q - backup)**2).mean()
 
         # Useful info for logging
-        loss_info = dict(QVals=q.detach().cpu().numpy())
+        loss_info = dict(QVals=q.detach().cpu().data.numpy())
 
         return loss_q, loss_info
 
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     parser.add_argument('--l', type=int, default=2)
     parser.add_argument('--gamma', type=float, default=0.99)
     parser.add_argument('--seed', '-s', type=int, default=0)
-    parser.add_argument('--epochs', type=int, default=100)
+    parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--exp_name', type=str, default='ddpg')
     args = parser.parse_args()
 
@@ -246,6 +246,7 @@ if __name__ == '__main__':
     o = env.reset()
     rewards = []
     t=0
+    t1 = time.time()
     while True:
     	amount = o[1] - (o[2] + o[0])
     	if amount == 0:
@@ -260,6 +261,8 @@ if __name__ == '__main__':
     		break
     #for i in range(99):
     #    print("Bought, sold, prices, rewards tot_sold", (env.energy_bought[i], env.energy_sold[i], env.prices[i], rewards[i], env.tot[i]))
+    t2= time.time()
+    print("time:",t2-t1)
     print("sum rewards: ",sum(rewards))
     print("avg reward: ", np.mean(rewards))
     '''

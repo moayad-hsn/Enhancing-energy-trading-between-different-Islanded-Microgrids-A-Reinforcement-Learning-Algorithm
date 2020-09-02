@@ -1,0 +1,40 @@
+{
+    "ac_kwargs":	{
+        "hidden_sizes":	[
+            64,
+            64
+        ]
+    },
+    "actor_critic":	"MLPActorCritic",
+    "env_fn":	"<function <lambda> at 0x0000025B73F27378>",
+    "epochs":	50,
+    "exp_name":	"vpg",
+    "gamma":	0.99,
+    "lam":	0.97,
+    "logger":	{
+        "<Code.utils.logx.EpochLogger object at 0x0000025B73F37B38>":	{
+            "epoch_dict":	{},
+            "exp_name":	"vpg",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"C:\\Users\\HP\\Documents\\GitHub\\Microgrid-Trading-Using-Reinforcement-Learning\\data\\vpg\\vpg_s0",
+            "output_file":	{
+                "<_io.TextIOWrapper name='C:\\\\Users\\\\HP\\\\Documents\\\\GitHub\\\\Microgrid-Trading-Using-Reinforcement-Learning\\\\data\\\\vpg\\\\vpg_s0\\\\progress.txt' mode='w' encoding='cp1252'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"vpg",
+        "output_dir":	"C:\\Users\\HP\\Documents\\GitHub\\Microgrid-Trading-Using-Reinforcement-Learning\\data\\vpg\\vpg_s0"
+    },
+    "max_ep_len":	1000,
+    "pi_lr":	0.0003,
+    "save_freq":	10,
+    "seed":	0,
+    "steps_per_epoch":	4000,
+    "train_v_iters":	80,
+    "vf_lr":	0.001
+}
