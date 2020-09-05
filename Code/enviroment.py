@@ -85,7 +85,7 @@ class Generation:
 		for i in range(len(self.wind_generation)):
 			if self.wind_generation[i] <0:
 				self.wind_generation[i] = 0
-		self.wind_generation = 0
+		#self.wind_generation = 0
 		self.generation = self.solar_generation + self.wind_generation
 		self.max_generation = max(self.generation)
 		#given current time, give the total generation of the solar and wind units		
