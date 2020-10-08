@@ -1,6 +1,6 @@
 clear all;
-data=readtable("Wind-54.csv");
+data=readtable("wind.csv");
 
 
 timeStamp = data.TimeStamp;
-Speed = data.wSpeed100;
+wSpeed = data.wSpeed100;
