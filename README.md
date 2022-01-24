@@ -4,9 +4,9 @@
  The paper presents an algorithm that acts as a trading controller for islanded microgrids, applied to data from Sudanese villages. The paper uses two Deep Reinforcement Learning algorithms, DDPG and PPO on the environment designed by the researchers.
  DOI for the 3 papers are:
  
- Enhancing Energy Trading Between Different Islanded Microgrids A Reinforcement Learning Algorithm Case Study in Northern Kordofan State: 10.1109/ICCCEEE49695.2021.9429584
+ Enhancing Energy Trading Between Different Islanded Microgrids A Reinforcement Learning Algorithm Case Study in Northern Kordofan State: [10.1109/ICCCEEE49695.2021.9429584](10.1109/ICCCEEE49695.2021.9429584)
  
- Comparison of Deep Reinforcement Learning Algorithms in Enhancing Energy Trading in Microgrids: 10.1109/ICCCEEE49695.2021.9429565
+ Comparison of Deep Reinforcement Learning Algorithms in Enhancing Energy Trading in Microgrids: [10.1109/ICCCEEE49695.2021.9429565](10.1109/ICCCEEE49695.2021.9429565)
  
- An Economic Evaluation of Islanded Microgrids Implementation in Northern Kordofan State: 10.1109/ICCCEEE49695.2021.9429680
+ An Economic Evaluation of Islanded Microgrids Implementation in Northern Kordofan State: [10.1109/ICCCEEE49695.2021.9429680](10.1109/ICCCEEE49695.2021.9429680)
  
